@@ -1,0 +1,7 @@
+<h2> {{ status.status_name | uppercase }} Details</h2>
+<div>
+  <span>id: </span>{{ status.status_id }}
+</div>
+<div>
+  <label>name: </label><input [(ngModel)]="status.status_name" placeholder="status_name">
+</div>
