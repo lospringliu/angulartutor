@@ -1,6 +1,16 @@
-<h2>{{ oscategory.category_name }} details</h2>
+<h2> OsCategory </h2>
 <div>
-  <label>
-    <input [(ngModel)]="oscategory.category_name" placeholder="name">
-  </label>
+  <ul class="oscategories">
+    <li *ngFor="let oscategory of oscategories" [class.selected]="oscategory === selectedOscategory" (click)="onSelect(oscategory)">
+      <span class="badge">{{ oscategory.category_id }}</span>{{ oscategory.category_name }}
+    </li>
+  </ul>
+</div>
+<div *ngIf="selectedOscategory">
+<h2>{{ selectedOscategory.category_name }} details</h2>
+  <div>
+    <label>
+      <input [(ngModel)]="selectedOscategory.category_name" placeholder="name">
+    </label>
+  </div>
 </div>
