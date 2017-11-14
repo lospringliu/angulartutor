@@ -1,7 +1,14 @@
-<h2> {{ status.status_name | uppercase }} Details</h2>
-<div>
-  <span>id: </span>{{ status.status_id }}
-</div>
-<div>
-  <label>name: </label><input [(ngModel)]="status.status_name" placeholder="status_name">
+<h2> Statuses </h2>
+<ul class="statuses">
+  <li *ngFor="let status of statuses" [class.selected]="status === selectedStatus" (click)="onSelect(status)">
+    <span class="badge"> {{ status.status_id }}</span> {{ status.status_name }}
+  </li>
+</ul>
+<div  *ngIf="selectedStatus">
+  <h2>{{ selectedStatus.status_name | uppercase }} details</h2>
+  <div>
+    <label>
+      <input [(ngModel)]="selectedStatus.status_name" placeholder="name">
+    </label>
+  </div>
 </div>

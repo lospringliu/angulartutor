@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Status } from '../build.class';
+import { STATUSES } from '../mock';
 
 @Component({
   selector: 'app-status',
@@ -9,13 +10,15 @@ import { Status } from '../build.class';
 })
 export class StatusComponent implements OnInit {
 
-  status: Status = {
-    status_id: 1,
-    status_name: 'open',
-  }
+  selectedStatus: Status;
+  statuses = STATUSES;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  onSelect(status: Status): void {
+    this.selectedStatus = status;
+  }
 }
