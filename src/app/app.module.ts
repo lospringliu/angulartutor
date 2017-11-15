@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { StatusComponent } from './status/status.component';
 import { OsCategoryComponent } from './os-category/os-category.component';
 import { StatusDetailComponent } from './status-detail/status-detail.component';
+import { OsCategoryDetailComponent } from './os-category-detail/os-category-detail.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { StatusDetailComponent } from './status-detail/status-detail.component';
     AppComponent,
     StatusComponent,
     OsCategoryComponent,
-    StatusDetailComponent
+    StatusDetailComponent,
+    OsCategoryDetailComponent
   ],
   imports: [
     BrowserModule,

@@ -6,11 +6,4 @@
     </li>
   </ul>
 </div>
-<div *ngIf="selectedOscategory">
-<h2>{{ selectedOscategory.category_name }} details</h2>
-  <div>
-    <label>
-      <input [(ngModel)]="selectedOscategory.category_name" placeholder="name">
-    </label>
-  </div>
-</div>
+<app-os-category-detail [oscategory]="selectedOscategory"></app-os-category-detail>

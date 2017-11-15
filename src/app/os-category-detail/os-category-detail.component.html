@@ -1,0 +1,9 @@
+<div *ngIf="oscategory">
+    <h2>{{ oscategory.category_name }} details</h2>
+      <div><span>{{ oscategory.category_id }}</span></div>
+      <div>
+        <label>
+          <input [(ngModel)]="oscategory.category_name" placeholder="name">
+        </label>
+      </div>
+</div>
