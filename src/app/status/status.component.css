@@ -1,7 +1,6 @@
 /* statusesComponent's private CSS styles */
-.selected {
-    background-color: #CFD8DC !important;
-    color: white;
+.statuses a {
+    text-decoration: none;
   }
   .statuses {
     margin: 0 0 2em 0;

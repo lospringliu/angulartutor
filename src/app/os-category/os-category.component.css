@@ -1,7 +1,6 @@
 /* oscategoryesComponent's private CSS styles */
-.selected {
-    background-color: #CFD8DC !important;
-    color: white;
+.oscategories a {
+    text-decoration: none;
   }
   .oscategories {
     margin: 0 0 2em 0;

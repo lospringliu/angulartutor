@@ -1,0 +1,10 @@
+nav {
+    display: flex;
+    justify-content: flex-end; 
+}
+nav div {
+    margin: 0 0 0 1rem;
+}
+.nav-left {
+    justify-self: flex-start;
+}
