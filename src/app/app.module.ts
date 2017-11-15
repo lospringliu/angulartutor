@@ -11,6 +11,7 @@ import { OsCategoryDetailComponent } from './os-category-detail/os-category-deta
 import { StatusService } from './status.service';
 import { MessageService } from './message.service';
 import { MessageComponent } from './message/message.component';
+import { OsCategoryService } from './os-category.service';
 
 
 @NgModule({
@@ -26,7 +27,7 @@ import { MessageComponent } from './message/message.component';
     BrowserModule,
     FormsModule
   ],
-  providers: [StatusService, MessageService],
+  providers: [StatusService, MessageService, OsCategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

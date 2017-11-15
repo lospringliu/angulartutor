@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { OsCategory } from '../build.class';
-import { OSCATEGORIES } from '../mock';
+import { OsCategoryService } from '../os-category.service';
+// import { OSCATEGORIES } from '../mock';
 
 @Component({
   selector: 'app-os-category',
@@ -12,11 +13,16 @@ import { OSCATEGORIES } from '../mock';
 export class OsCategoryComponent implements OnInit {
   selectedOscategory: OsCategory;
 
-  oscategories = OSCATEGORIES;
+  oscategories: OsCategory[];
 
-  constructor() { }
+  constructor(private _oscategoryService: OsCategoryService) { }
 
-  ngOnInit() { }
+  ngOnInit() { this.getOsCategories(); }
+
+  getOsCategories() {
+    this._oscategoryService.getOsCategories()
+        .subscribe(oscategories => this.oscategories = oscategories);
+  }
 
   onSelect(oscategory: OsCategory): void {
     this.selectedOscategory = oscategory;
