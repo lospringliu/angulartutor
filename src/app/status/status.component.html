@@ -1,7 +1,8 @@
 <h2> Statuses </h2>
 <ul class="statuses">
-  <li *ngFor="let status of statuses" [class.selected]="status === selectedStatus" (click)="onSelect(status)">
-    <span class="badge"> {{ status.status_id }}</span> {{ status.status_name }}
+  <li *ngFor="let status of statuses">
+    <a routerLink="/status-detail/{{ status.status_id }}">
+      <span class="badge"> {{ status.status_id }}</span> {{ status.status_name }}
+    </a>
   </li>
 </ul>
-<app-status-detail [status]="selectedStatus"></app-status-detail>

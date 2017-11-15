@@ -12,7 +12,6 @@ import { StatusService } from '../status.service';
 
 export class StatusComponent implements OnInit {
 
-  selectedStatus: Status;
   statuses: Status[];
 
   constructor(private _statusService: StatusService) {}
@@ -26,7 +25,4 @@ export class StatusComponent implements OnInit {
       .subscribe(statuses => this.statuses = statuses);
   }
   
-  onSelect(status: Status): void {
-    this.selectedStatus = status;
-  }
 }

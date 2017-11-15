@@ -11,7 +11,6 @@ import { OsCategoryService } from '../os-category.service';
 })
 
 export class OsCategoryComponent implements OnInit {
-  selectedOscategory: OsCategory;
 
   oscategories: OsCategory[];
 
@@ -24,8 +23,5 @@ export class OsCategoryComponent implements OnInit {
         .subscribe(oscategories => this.oscategories = oscategories);
   }
 
-  onSelect(oscategory: OsCategory): void {
-    this.selectedOscategory = oscategory;
-  }
 
 }

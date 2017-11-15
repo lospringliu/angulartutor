@@ -12,7 +12,8 @@ import { StatusService } from './status.service';
 import { MessageService } from './message.service';
 import { MessageComponent } from './message/message.component';
 import { OsCategoryService } from './os-category.service';
-
+import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { OsCategoryService } from './os-category.service';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [StatusService, MessageService, OsCategoryService],
   bootstrap: [AppComponent]

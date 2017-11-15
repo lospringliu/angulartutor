@@ -1,5 +1,8 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { OsCategory } from '../build.class';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { OsCategoryService } from '../os-category.service';
 
 @Component({
   selector: 'app-os-category-detail',
@@ -9,11 +12,21 @@ import { OsCategory } from '../build.class';
 })
 export class OsCategoryDetailComponent implements OnInit {
 
-  @Input() oscategory: OsCategory;
+  oscategory: OsCategory;
   
-  constructor() { }
+  constructor(private _route: ActivatedRoute, private _location: Location, private _oscategoryService: OsCategoryService) { }
 
   ngOnInit() {
+    this.getOsCategory();
   }
 
+  getOsCategory(): void {
+    const id = +this._route.snapshot.paramMap.get('id') ;
+    this._oscategoryService.getOsCategory(id)
+        .subscribe(oscategory => this.oscategory = oscategory);
+  }
+
+  goBack(): void {
+    this._location.back();
+  }
 }

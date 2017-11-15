@@ -11,7 +11,12 @@ export class StatusService {
   constructor(private _messageService: MessageService) { }
 
   getStatuses(): Observable<Status[]> {
-    this._messageService.add('StatusService: fetched statues');
+    this._messageService.add('StatusService: fetched statuses');
     return of(STATUSES);
+  }
+
+  getStatus(id: number): Observable<Status> {
+    this._messageService.add(`StatusService: fetched status with status_id=${id}`);
+    return of(STATUSES.find(status => status.status_id === id));
   }
 }
