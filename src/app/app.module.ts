@@ -8,6 +8,9 @@ import { StatusComponent } from './status/status.component';
 import { OsCategoryComponent } from './os-category/os-category.component';
 import { StatusDetailComponent } from './status-detail/status-detail.component';
 import { OsCategoryDetailComponent } from './os-category-detail/os-category-detail.component';
+import { StatusService } from './status.service';
+import { MessageService } from './message.service';
+import { MessageComponent } from './message/message.component';
 
 
 @NgModule({
@@ -16,13 +19,14 @@ import { OsCategoryDetailComponent } from './os-category-detail/os-category-deta
     StatusComponent,
     OsCategoryComponent,
     StatusDetailComponent,
-    OsCategoryDetailComponent
+    OsCategoryDetailComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [StatusService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
