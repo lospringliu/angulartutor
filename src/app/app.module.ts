@@ -14,6 +14,11 @@ import { MessageComponent } from './message/message.component';
 import { OsCategoryService } from './os-category.service';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './in-memory-data.service';
+import { StatusSearchComponent } from './status-search/status-search.component';
 
 @NgModule({
   declarations: [
@@ -22,12 +27,15 @@ import { RouterModule } from '@angular/router';
     OsCategoryComponent,
     StatusDetailComponent,
     OsCategoryDetailComponent,
-    MessageComponent
+    MessageComponent,
+    StatusSearchComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    HttpClientModule,
+    AppRoutingModule,
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
   ],
   providers: [StatusService, MessageService, OsCategoryService],
   bootstrap: [AppComponent]

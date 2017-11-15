@@ -1,18 +1,18 @@
 import { Status, OsCategory } from './build.class';
 
 export const STATUSES: Status[] = [
-    {status_id: 0, status_name: 'open'},
-    {status_id: 1, status_name: 'submitted'},
-    {status_id: 2, status_name: 'queuing'},
-    {status_id: 3, status_name: 'running'},
-    {status_id: 4, status_name: 'done'},
-    {status_id: 5, status_name: 'successful'},
-    {status_id: 6, status_name: 'failed'},
-    {status_id: 7, status_name: 'checking'},
-    {status_id: 8, status_name: 'chk_failed'},
-    {status_id: 9, status_name: 'exit'},
-    {status_id: 10, status_name: 'stopped'},
-    {status_id: 11, status_name: 'partial_build'}
+    {id: 0, status_name: 'open'},
+    {id: 1, status_name: 'submitted'},
+    {id: 2, status_name: 'queuing'},
+    {id: 3, status_name: 'running'},
+    {id: 4, status_name: 'done'},
+    {id: 5, status_name: 'successful'},
+    {id: 6, status_name: 'failed'},
+    {id: 7, status_name: 'checking'},
+    {id: 8, status_name: 'chk_failed'},
+    {id: 9, status_name: 'exit'},
+    {id: 10, status_name: 'stopped'},
+    {id: 11, status_name: 'partial_build'}
 ]
 
 export const OSCATEGORIES: OsCategory[] = [

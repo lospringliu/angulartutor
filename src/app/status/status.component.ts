@@ -25,4 +25,17 @@ export class StatusComponent implements OnInit {
       .subscribe(statuses => this.statuses = statuses);
   }
   
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this._statusService.addStatus( { status_name: name } as Status)
+        .subscribe(
+          status => { this.statuses.push(status); }
+        );
+  }
+
+  delete(status: Status): void {
+    this.statuses = this.statuses.filter(h => h !== status);
+    this._statusService.deleteStatus(status).subscribe();
+  }
 }

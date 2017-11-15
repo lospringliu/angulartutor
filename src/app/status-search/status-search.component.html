@@ -1,0 +1,13 @@
+<div id="search-component">
+    <h4>Status Search</h4>
+   
+    <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+   
+    <ul class="search-result">
+      <li *ngFor="let status of statuses$ | async" >
+        <a routerLink="/status-detail/{{status.id}}">
+          {{status.status_name}}
+        </a>
+      </li>
+    </ul>
+</div>

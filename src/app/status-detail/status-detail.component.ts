@@ -26,7 +26,11 @@ export class StatusDetailComponent implements OnInit {
         .subscribe(status => this.status = status);
   }
 
-
+  save(): void {
+    this._statusService.updateStatus(this.status)
+        .subscribe(() => this.goBack());
+  }
+  
   goBack(): void {
     this._location.back();
   }
