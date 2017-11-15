@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Status } from '../build.class';
-// import { STATUSES } from '../mock';
 import { StatusService } from '../status.service';
 
 @Component({

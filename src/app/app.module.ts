@@ -16,8 +16,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './in-memory-data.service';
+// import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+// import { InMemoryDataService } from './in-memory-data.service';
 import { StatusSearchComponent } from './status-search/status-search.component';
 
 @NgModule({
@@ -35,7 +35,7 @@ import { StatusSearchComponent } from './status-search/status-search.component';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
+    // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
   ],
   providers: [StatusService, MessageService, OsCategoryService],
   bootstrap: [AppComponent]

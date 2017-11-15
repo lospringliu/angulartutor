@@ -7,26 +7,27 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Token 7e2df3cdc99303baeb7bff3edf98841917c960e4' })
 };
 
 @Injectable()
 export class StatusService {
 
-  private _statusUrl = 'api/statuses';
+  private _statusUrl = 'http://ma1blds3.eng.platformlab.ibm.com:8002/api/status/';
 
   constructor(private _http: HttpClient, private _messageService: MessageService) { }
 
   getStatuses(): Observable<Status[]> {
-    return this._http.get<Status[]>(this._statusUrl)
+    return this._http.get<Status[]>(this._statusUrl, httpOptions)
         .pipe(
+          map(resp => resp['results']),
           tap(heroes => this._log(`fetched statuses`)),
           catchError(this._handleError('getStatuses',[]))
         );
   }
 
   getStatus(id: number): Observable<Status> {
-    const url = `${this._statusUrl}/${id}`;
+    const url = `${this._statusUrl}${id}/`;
     return this._http.get<Status>(url)
         .pipe(
           tap(_ => this._log(`fetched status with status_id=${id}`)),
@@ -37,20 +38,20 @@ export class StatusService {
   updateStatus(status: Status): Observable<any> {
     return this._http.put(this._statusUrl, status, httpOptions)
         .pipe(
-          tap(_ => this._log(`updated status with status_id=${status.id}`)),
+          tap(_ => this._log(`updated status with status_id=${status.status_id}`)),
           catchError(this._handleError<any>('updateStatus'))
         );
   }
 
   addStatus(status: Status): Observable<Status> {
     return this._http.post<Status>(this._statusUrl, status, httpOptions).pipe(
-      tap((status: Status) => this._log(`added Status with status_id=${status.id} `)),
+      tap((status: Status) => this._log(`added Status with status_id=${status.status_id} `)),
       catchError(this._handleError<Status>('addStatus'))
     );
   }
 
   deleteStatus(status: Status | number): Observable<Status> {
-    const id = typeof status === 'number' ? status : status.id;
+    const id = typeof status === 'number' ? status : status.status_id;
     const url = `${this._statusUrl}/${id}`;
     return this._http.delete<Status>(url,httpOptions).pipe(
       tap(_ => this._log(`deleted Status status_id=${id}`)),
@@ -75,6 +76,7 @@ export class StatusService {
   private _handleError<T>(operation = 'operation', result?: T){
     return (error: any): Observable<T> => {
       console.error(error);
+      console.dir(error);
       this._log(`${operation} failed: ${error.message}`);
       return of(result as T);
     }

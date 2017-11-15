@@ -4,6 +4,7 @@ import { STATUSES, OSCATEGORIES } from './mock';
 export class InMemoryDataService implements InMemoryDbService {
     createDb() {
         const statuses = STATUSES;
-        return { statuses };
+        const oscategories = OSCATEGORIES;
+        return { statuses, oscategories };
     }
 }

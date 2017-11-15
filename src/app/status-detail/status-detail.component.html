@@ -1,6 +1,6 @@
 <div  *ngIf="status">
     <h2>{{ status.status_name | uppercase }} details</h2>
-    <div><span>{{ status.id }}</span></div>
+    <div><span>{{ status.status_id }}</span></div>
     <div>
       <label>
         <input [(ngModel)]="status.status_name" placeholder="name">

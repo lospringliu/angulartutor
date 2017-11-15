@@ -1,18 +1,18 @@
 <h2> Statuses </h2>
 <ul class="statuses">
   <li *ngFor="let status of statuses">
-    <a routerLink="/status-detail/{{ status.id }}">
-      <span class="badge"> {{ status.id }}</span> {{ status.status_name }} 
+    <a routerLink="/status-detail/{{ status.status_id }}">
+      <span class="badge"> {{ status.status_id }}</span> {{ status.status_name }} 
     </a>
     <button class="delete" title="delete status" (click)="delete(status)">x</button>
   </li>
 </ul>
 <div>
-    <label>Hero name:
-      <input #heroName />
+    <label>Status name:
+      <input #statusName />
     </label>
     <!-- (click) passes input value to add() and then clears the input -->
-    <button (click)="add(heroName.value); heroName.value=''">
+    <button (click)="add(statusName.value); statusName.value=''">
       add
     </button>
 </div>
