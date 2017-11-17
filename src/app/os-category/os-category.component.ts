@@ -23,5 +23,18 @@ export class OsCategoryComponent implements OnInit {
         .subscribe(oscategories => this.oscategories = oscategories);
   }
 
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this._oscategoryService.addOsCategory( { category_name: name } as OsCategory)
+        .subscribe(
+          oscategory => { this.oscategories.push(oscategory); }
+        );
+  }
+
+  delete(oscategory: OsCategory): void {
+    this.oscategories = this.oscategories.filter(h => h !== oscategory);
+    this._oscategoryService.deleteOsCategory(oscategory).subscribe();
+  }
 
 }

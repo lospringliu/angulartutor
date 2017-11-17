@@ -12,11 +12,17 @@ import { StatusService } from '../status.service';
 export class StatusComponent implements OnInit {
 
   statuses: Status[];
+  private _laststatus = null;
 
   constructor(private _statusService: StatusService) {}
 
   ngOnInit() {
     this.getStatuses();
+  }
+
+  getLastStatus(): void {
+    this.getStatuses();
+    this._laststatus = this.statuses.reduce( (x,y) => x.status_id > y.status_id ? x : y);
   }
 
   getStatuses(): void {
@@ -27,7 +33,8 @@ export class StatusComponent implements OnInit {
   add(name: string): void {
     name = name.trim();
     if (!name) { return; }
-    this._statusService.addStatus( { status_name: name } as Status)
+    this.getLastStatus();
+    this._statusService.addStatus( { status_id: this._laststatus.status_id + 1, status_name: name } as Status)
         .subscribe(
           status => { this.statuses.push(status); }
         );

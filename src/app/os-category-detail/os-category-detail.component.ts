@@ -26,6 +26,11 @@ export class OsCategoryDetailComponent implements OnInit {
         .subscribe(oscategory => this.oscategory = oscategory);
   }
 
+  save(): void {
+    this._oscategoryService.updateOsCategory(this.oscategory)
+        .subscribe(() => this.goBack());
+  }
+
   goBack(): void {
     this._location.back();
   }

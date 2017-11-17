@@ -36,7 +36,7 @@ export class StatusService {
   }
 
   updateStatus(status: Status): Observable<any> {
-    return this._http.put(this._statusUrl, status, httpOptions)
+    return this._http.patch(`${this._statusUrl}${status.status_id}/`, status, httpOptions)
         .pipe(
           tap(_ => this._log(`updated status with status_id=${status.status_id}`)),
           catchError(this._handleError<any>('updateStatus'))
@@ -52,7 +52,7 @@ export class StatusService {
 
   deleteStatus(status: Status | number): Observable<Status> {
     const id = typeof status === 'number' ? status : status.status_id;
-    const url = `${this._statusUrl}/${id}`;
+    const url = `${this._statusUrl}${id}/`;
     return this._http.delete<Status>(url,httpOptions).pipe(
       tap(_ => this._log(`deleted Status status_id=${id}`)),
       catchError(this._handleError<Status>('deleteStatus'))
@@ -63,7 +63,7 @@ export class StatusService {
     if ( !term.trim()) {
       return of([]);
     }
-    return this._http.get<Status[]>(`${this._statusUrl}/?status_name=${term}`).pipe(
+    return this._http.get<Status[]>(`${this._statusUrl}?status_name=${term}`).pipe(
       tap(_ => this._log(`found statues matching "${term}"`)),
       catchError(this._handleError<Status[]>('searchStatuses',[]))
     );
