@@ -17,8 +17,8 @@ export class ProductBuildService {
 
   constructor(private _http: HttpClient, private _messageService: MessageService) { } ;
 
-  getObjects<T>(objectclass: T): Observable<T[]> {
-    return this._http.get<T[]>(this._url, httpOptions)
+  getObjects<T>(objectclass: any): Observable<any[]> {
+    return this._http.get<any[]>(this._url, httpOptions)
         .pipe(
           map(resp => resp['results']),
           tap(heroes => this._log(`fetched objects`)),
