@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { OsCategory } from '../build.class';
 import { OsCategoryService } from '../os-category.service';
+// import { ProductBuildService } from '../product-build.service';
 // import { OSCATEGORIES } from '../mock';
 
 @Component({
@@ -20,6 +21,7 @@ export class OsCategoryListComponent implements OnInit {
 
   getOsCategories() {
     this._oscategoryService.getOsCategories()
+    //this._service.getObjects(OsCategory)
         .subscribe(oscategories => this.oscategories = oscategories);
   }
 

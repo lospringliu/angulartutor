@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 // import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryDataService } from './in-memory-data.service';
 import { StatusSearchComponent } from './status-search/status-search.component';
+import { ProductBuildService } from './product-build.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { StatusSearchComponent } from './status-search/status-search.component';
     AppRoutingModule,
     // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
   ],
-  providers: [StatusService, MessageService, OsCategoryService],
+  providers: [StatusService, MessageService, OsCategoryService, ProductBuildService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
