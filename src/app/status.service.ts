@@ -13,7 +13,7 @@ const httpOptions = {
 @Injectable()
 export class StatusService {
 
-  private _statusUrl = 'http://ma1blds3.eng.platformlab.ibm.com:8002/api/status/';
+  private _statusUrl = 'http://ma1blds3.eng.platformlab.ibm.com:8002/api/productbuild/status/';
 
   constructor(private _http: HttpClient, private _messageService: MessageService) { }
 

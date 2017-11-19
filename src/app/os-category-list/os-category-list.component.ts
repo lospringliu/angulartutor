@@ -5,12 +5,12 @@ import { OsCategoryService } from '../os-category.service';
 
 @Component({
   selector: 'app-os-category',
-  templateUrl: './os-category.component.html',
-  styleUrls: ['./os-category.component.css'],
+  templateUrl: './os-category-list.component.html',
+  styleUrls: ['./os-category-list.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 
-export class OsCategoryComponent implements OnInit {
+export class OsCategoryListComponent implements OnInit {
 
   oscategories: OsCategory[];
 

@@ -13,7 +13,7 @@ const httpOptions = {
 @Injectable()
 export class OsCategoryService {
 
-  private _oscategoryUrl = 'http://ma1blds3.eng.platformlab.ibm.com:8002/api/oscategory/';
+  private _oscategoryUrl = 'http://ma1blds3.eng.platformlab.ibm.com:8002/api/productbuild/oscategory/';
   constructor(private _http: HttpClient, private _messageService: MessageService) { }
 
   getOsCategories(): Observable<OsCategory[]> {

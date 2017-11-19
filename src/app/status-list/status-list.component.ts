@@ -4,12 +4,12 @@ import { StatusService } from '../status.service';
 
 @Component({
   selector: 'app-status',
-  templateUrl: './status.component.html',
-  styleUrls: ['./status.component.css'],
+  templateUrl: './status-list.component.html',
+  styleUrls: ['./status-list.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 
-export class StatusComponent implements OnInit {
+export class StatusListComponent implements OnInit {
 
   statuses: Status[];
   private _laststatus = null;

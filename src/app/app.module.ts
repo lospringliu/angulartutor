@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
-import { StatusComponent } from './status/status.component';
-import { OsCategoryComponent } from './os-category/os-category.component';
+import { StatusListComponent } from './status-list/status-list.component';
+import { OsCategoryListComponent } from './os-category-list/os-category-list.component';
 import { StatusDetailComponent } from './status-detail/status-detail.component';
 import { OsCategoryDetailComponent } from './os-category-detail/os-category-detail.component';
 import { StatusService } from './status.service';
@@ -23,8 +23,8 @@ import { StatusSearchComponent } from './status-search/status-search.component';
 @NgModule({
   declarations: [
     AppComponent,
-    StatusComponent,
-    OsCategoryComponent,
+    StatusListComponent,
+    OsCategoryListComponent,
     StatusDetailComponent,
     OsCategoryDetailComponent,
     MessageComponent,
