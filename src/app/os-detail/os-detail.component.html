@@ -1,0 +1,12 @@
+
+<div *ngIf="os">
+  <h2>{{ os.os_name }} details</h2>
+    <div><span>{{ os.os_id }}</span></div>
+    <div>
+      <label>
+        <input [(ngModel)]="os.os_name" placeholder="name">
+      </label>
+    </div>
+    <button (click)="goBack()">Go Back</button>
+    <button (click)="save()">Save</button>
+</div>

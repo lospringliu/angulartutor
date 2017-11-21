@@ -20,6 +20,9 @@ import { HttpClientModule } from '@angular/common/http';
 // import { InMemoryDataService } from './in-memory-data.service';
 import { StatusSearchComponent } from './status-search/status-search.component';
 import { ProductBuildService } from './product-build.service';
+import { OsService } from './os.service';
+import { OsListComponent } from './os-list/os-list.component';
+import { OsDetailComponent } from './os-detail/os-detail.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,9 @@ import { ProductBuildService } from './product-build.service';
     StatusDetailComponent,
     OsCategoryDetailComponent,
     MessageComponent,
-    StatusSearchComponent
+    StatusSearchComponent,
+    OsListComponent,
+    OsDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +43,7 @@ import { ProductBuildService } from './product-build.service';
     AppRoutingModule,
     // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
   ],
-  providers: [StatusService, MessageService, OsCategoryService, ProductBuildService],
+  providers: [StatusService, MessageService, OsCategoryService, ProductBuildService, OsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,14 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { StatusListComponent } from './status-list/status-list.component';
+import { OsListComponent } from './os-list/os-list.component';
 import { OsCategoryListComponent } from './os-category-list/os-category-list.component';
 import { StatusDetailComponent } from './status-detail/status-detail.component';
 import { OsCategoryDetailComponent } from './os-category-detail/os-category-detail.component'; 
+import { OsDetailComponent } from './os-detail/os-detail.component'; 
 
 const routes: Routes = [
   { path: 'status-list', component: StatusListComponent },
   { path: 'oscategory-list', component: OsCategoryListComponent },
+  { path: 'os-list', component: OsListComponent },
   { path: 'status-detail/:id', component: StatusDetailComponent },
+  { path: 'os-detail/:id', component: OsDetailComponent },
   { path: 'oscategory-detail/:id', component: OsCategoryDetailComponent }
 ]
 

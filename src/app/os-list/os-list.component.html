@@ -1,0 +1,23 @@
+<h2> Os </h2>
+<div>
+  <ul class="oses">
+    <li *ngFor="let os of oses">
+      <a routerLink="/os-detail/{{ os.os_id }}">
+        <span class="badge">{{ os.os_id }}</span>
+        <span class='sep'>{{ os.os_name }}</span>
+        <span class='sep'>{{ os.env }}</span>
+        <span class='sep'>{{ os.chkos }}</span>
+      </a>
+      <button class="delete" title="delete os" (click)="delete(os)">x</button>
+    </li>
+  </ul>
+</div>
+<div>
+  <label>Os name:
+    <input #osName />
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(osName.value); osName.value=''">
+    add
+  </button>
+</div>

@@ -21,7 +21,7 @@ export class StatusService {
     return this._http.get<Status[]>(this._statusUrl, httpOptions)
         .pipe(
           map(resp => resp['results']),
-          tap(heroes => this._log(`fetched statuses`)),
+          tap(statuses => this._log(`fetched statuses`)),
           catchError(this._handleError('getStatuses',[]))
         );
   }
