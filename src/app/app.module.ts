@@ -23,6 +23,9 @@ import { ProductBuildService } from './product-build.service';
 import { OsService } from './os.service';
 import { OsListComponent } from './os-list/os-list.component';
 import { OsDetailComponent } from './os-detail/os-detail.component';
+import { WorkitemService } from './workitem.service';
+import { WorkitemListComponent } from './workitem-list/workitem-list.component';
+import { WorkitemDetailComponent } from './workitem-detail/workitem-detail.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,9 @@ import { OsDetailComponent } from './os-detail/os-detail.component';
     MessageComponent,
     StatusSearchComponent,
     OsListComponent,
-    OsDetailComponent
+    OsDetailComponent,
+    WorkitemListComponent,
+    WorkitemDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +48,7 @@ import { OsDetailComponent } from './os-detail/os-detail.component';
     AppRoutingModule,
     // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
   ],
-  providers: [StatusService, MessageService, OsCategoryService, ProductBuildService, OsService],
+  providers: [StatusService, MessageService, OsCategoryService, ProductBuildService, OsService, WorkitemService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

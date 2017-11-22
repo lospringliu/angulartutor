@@ -20,7 +20,7 @@ export class StatusService {
   getStatuses(): Observable<Status[]> {
     return this._http.get<Status[]>(this._statusUrl, httpOptions)
         .pipe(
-          map(resp => resp['results']),
+          //map(resp => resp['results']),
           tap(statuses => this._log(`fetched statuses`)),
           catchError(this._handleError('getStatuses',[]))
         );

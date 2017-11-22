@@ -6,6 +6,8 @@ import { OsCategoryListComponent } from './os-category-list/os-category-list.com
 import { StatusDetailComponent } from './status-detail/status-detail.component';
 import { OsCategoryDetailComponent } from './os-category-detail/os-category-detail.component'; 
 import { OsDetailComponent } from './os-detail/os-detail.component'; 
+import { WorkitemListComponent } from './workitem-list/workitem-list.component';
+import { WorkitemDetailComponent } from './workitem-detail/workitem-detail.component';
 
 const routes: Routes = [
   { path: 'status-list', component: StatusListComponent },
@@ -13,7 +15,9 @@ const routes: Routes = [
   { path: 'os-list', component: OsListComponent },
   { path: 'status-detail/:id', component: StatusDetailComponent },
   { path: 'os-detail/:id', component: OsDetailComponent },
-  { path: 'oscategory-detail/:id', component: OsCategoryDetailComponent }
+  { path: 'oscategory-detail/:id', component: OsCategoryDetailComponent },
+  { path: 'workitem-list', component: WorkitemListComponent },
+  { path: 'workitem-detail/:id', component: WorkitemDetailComponent },
 ]
 
 @NgModule({

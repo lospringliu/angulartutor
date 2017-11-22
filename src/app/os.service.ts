@@ -20,7 +20,7 @@ export class OsService {
   getObjects(): Observable<Os[]> {
     return this._http.get<Os[]>(this._url, httpOptions)
         .pipe(
-          map(resp => resp['results']),
+          //map(resp => resp['results']),
           tap(oses => this._log(`fetched objects`)),
           catchError(this._handleError('getObjects',[]))
         );

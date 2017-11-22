@@ -18,7 +18,7 @@ export class OsCategoryService {
 
   getOsCategories(): Observable<OsCategory[]> {
     return this._http.get<OsCategory[]>(this._oscategoryUrl, httpOptions).pipe(
-      map(resp => resp['results']),
+      //map(resp => resp['results']),
       tap(oscategories => this._log('fetched oscategories')),
       catchError(this._handleError<OsCategory[]>('getOsCategories',[]))
     );

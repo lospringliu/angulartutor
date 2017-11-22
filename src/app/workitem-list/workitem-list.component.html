@@ -1,0 +1,12 @@
+<h2> Workitem </h2>
+<div>
+  <ul class="workitems">
+    <li *ngFor="let workitem of workitems">
+      <a routerLink="/workitem-detail/{{ workitem.id }}">
+        <span class="badge">{{ workitem.wi_id }}</span>
+        <span class='sep'>{{ workitem.summary }}</span>
+      </a>
+      <button class="delete" title="delete workitem" (click)="delete(workitem)">x</button>
+    </li>
+  </ul>
+</div>
