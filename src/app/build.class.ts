@@ -13,4 +13,20 @@ export class Os {
     os_name: string;
     env: string;
     checkos: string;
+    category: OsCategory;
+}
+
+export const MAP_CLASS_SERVICE = {
+    status: {
+        pk: 'statud_id',
+        cls: Status
+    },
+    oscategory: {
+        pk: 'category_id',
+        cls: OsCategory
+    },
+    os: {
+        pk: 'os_id',
+        cls: Os
+    }
 }

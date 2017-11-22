@@ -35,23 +35,23 @@ export class OsService {
         );
   }
 
-  updateObject(os: Os): Observable<any> {
-    return this._http.patch(`${this._url}${os.os_id}/`, os, httpOptions)
+  updateObject(obj: Os): Observable<any> {
+    return this._http.patch(`${this._url}${obj.os_id}/`, obj, httpOptions)
         .pipe(
-          tap(_ => this._log(`updated os with os_id=${os.os_id}`)),
+          tap(_ => this._log(`updated object with os_id=${obj.os_id}`)),
           catchError(this._handleError<any>('updateObject'))
         );
   }
 
-  addObject(os: Os): Observable<Os> {
-    return this._http.post<Os>(this._url, os, httpOptions).pipe(
-      tap((os: Os) => this._log(`added Os with os_id=${os.os_id} `)),
+  addObject(obj: Os): Observable<Os> {
+    return this._http.post<Os>(this._url, obj, httpOptions).pipe(
+      tap((obj: Os) => this._log(`added Os with os_id=${obj.os_id} `)),
       catchError(this._handleError<Os>('addObject'))
     );
   }
 
-  deleteObject(os: Os | number): Observable<Os> {
-    const id = typeof os === 'number' ? os : os.os_id;
+  deleteObject(obj: Os | number): Observable<Os> {
+    const id = typeof obj === 'number' ? obj : obj.os_id;
     const url = `${this._url}${id}/`;
     return this._http.delete<Os>(url,httpOptions).pipe(
       tap(_ => this._log(`deleted Os os_id=${id}`)),

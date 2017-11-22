@@ -4,8 +4,8 @@
     <li *ngFor="let os of oses">
       <a routerLink="/os-detail/{{ os.os_id }}">
         <span class="badge">{{ os.os_id }}</span>
+        <span class='sep'>{{ os.category.category_name }}</span>
         <span class='sep'>{{ os.os_name }}</span>
-        <span class='sep'>{{ os.env }}</span>
         <span class='sep'>{{ os.chkos }}</span>
       </a>
       <button class="delete" title="delete os" (click)="delete(os)">x</button>
