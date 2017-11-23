@@ -15,6 +15,7 @@ import { OsCategoryService } from './os-category.service';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryDataService } from './in-memory-data.service';
@@ -44,6 +45,7 @@ import { WorkitemDetailComponent } from './workitem-detail/workitem-detail.compo
   imports: [
     BrowserModule,
     FormsModule,
+    NgbModule.forRoot(),
     HttpClientModule,
     AppRoutingModule,
     // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })

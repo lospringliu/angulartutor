@@ -21,7 +21,16 @@ export class WorkitemService {
     return this._http.get<Workitem[]>(this._url, httpOptions)
         .pipe(
           //map(resp => resp['results']),
-          tap(oses => this._log(`fetched objects`)),
+          tap(workitems => this._log(`fetched objects`)),
+          catchError(this._handleError('getObjects',[]))
+        );
+  }
+
+  getPartObjects(filter_url_string: string): Observable<Workitem[]> {
+    return this._http.get<Workitem[]>(`${this._url}${filter_url_string}/`, httpOptions)
+        .pipe(
+          //map(resp => resp['results']),
+          tap(workitems => this._log(`fetched objects`)),
           catchError(this._handleError('getObjects',[]))
         );
   }

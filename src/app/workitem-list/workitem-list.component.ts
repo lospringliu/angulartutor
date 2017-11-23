@@ -17,13 +17,20 @@ export class WorkitemListComponent implements OnInit {
 
   //constructor(private _oscategoryService: OsCategoryService) { }
   constructor(private _workitemService: WorkitemService) { }
-  ngOnInit() { this.getObjects(); }
+  ngOnInit() { this.getPatchObjects(); }
 
   getObjects() {
     this._workitemService.getObjects()
     //this._service.getObjects(OsCategory)
         .subscribe(workitems => this.workitems = workitems);
   }
+
+  getPatchObjects() {
+    this._workitemService.getPartObjects('patches')
+    //this._service.getObjects(OsCategory)
+        .subscribe(workitems => this.workitems = workitems);
+  }
+
 
   add(wi_id: number, name: string): void {
     name = name.trim();
