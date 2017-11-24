@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Workitem } from '../patch.class';
+import { Workitem, Product, Version, FakeTask } from '../patch.class';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { WorkitemService } from '../workitem.service';
+import { VersionService } from '../version.service';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-workitem-detail',
@@ -14,11 +16,38 @@ import { WorkitemService } from '../workitem.service';
 export class WorkitemDetailComponent implements OnInit {
 
   workitem: Workitem;
+  VERSIONS: Version[];
+  PRODUCTS: Product[];
+  TASKTEMPLATES: FakeTask[];
   
-  constructor(private _route: ActivatedRoute, private _location: Location, private _workitemService: WorkitemService) { }
+  constructor(private _route: ActivatedRoute, private _location: Location, private _workitemService: WorkitemService, private _versionService: VersionService, private _productService: ProductService) { }
 
   ngOnInit() {
+    this.get_VERSIONS();
+    this.get_PRODUCTS();
+    this.get_TASKTEMPLATES();
     this.getObject();
+  }
+
+  get_TASKTEMPLATES(): void {
+    const id = +this._route.snapshot.paramMap.get('id') ;
+    this._workitemService.getTaskTemplates(id)
+        .subscribe(tasktemplates => this.TASKTEMPLATES = tasktemplates);
+  }
+  
+  get_VERSIONS(): void {
+    this._versionService.getObjects()
+        .subscribe(versions => this.VERSIONS = versions);
+  }
+  get_PRODUCTS(): void {
+    this._productService.getObjects()
+        .subscribe(products => this.PRODUCTS = products);
+  }
+  syncObject(): void {
+    this._workitemService.syncObject(this.workitem.id)
+        .subscribe(workitem => { 
+          this.workitem = workitem;
+        });
   }
 
   getObject(): void {

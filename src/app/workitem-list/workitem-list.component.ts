@@ -13,11 +13,15 @@ import { WorkitemService } from '../workitem.service';
 
 export class WorkitemListComponent implements OnInit {
 
+  patch_workitems: Workitem[];
   workitems: Workitem[];
 
   //constructor(private _oscategoryService: OsCategoryService) { }
   constructor(private _workitemService: WorkitemService) { }
-  ngOnInit() { this.getPatchObjects(); }
+  ngOnInit() { 
+    this.getPatchObjects();
+    this.getObjects(); 
+  }
 
   getObjects() {
     this._workitemService.getObjects()
@@ -25,10 +29,15 @@ export class WorkitemListComponent implements OnInit {
         .subscribe(workitems => this.workitems = workitems);
   }
 
+  syncObjects() {
+    this._workitemService.syncObjects()
+        .subscribe();
+  }
+
   getPatchObjects() {
     this._workitemService.getPartObjects('patches')
     //this._service.getObjects(OsCategory)
-        .subscribe(workitems => this.workitems = workitems);
+        .subscribe(workitems => this.patch_workitems = workitems);
   }
 
 

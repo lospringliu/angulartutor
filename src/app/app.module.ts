@@ -15,7 +15,7 @@ import { OsCategoryService } from './os-category.service';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+//import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryDataService } from './in-memory-data.service';
@@ -27,6 +27,9 @@ import { OsDetailComponent } from './os-detail/os-detail.component';
 import { WorkitemService } from './workitem.service';
 import { WorkitemListComponent } from './workitem-list/workitem-list.component';
 import { WorkitemDetailComponent } from './workitem-detail/workitem-detail.component';
+import { VersionService } from './version.service';
+import { ProductService } from './product.service';
+//import { NgbProgressbarLabeledComponent } from './ng-bootstrap/ngb-progressbar-labeled.component';
 
 @NgModule({
   declarations: [
@@ -41,16 +44,17 @@ import { WorkitemDetailComponent } from './workitem-detail/workitem-detail.compo
     OsDetailComponent,
     WorkitemListComponent,
     WorkitemDetailComponent
+    //NgbProgressbarLabeledComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    NgbModule.forRoot(),
+    //NgbModule.forRoot(),
     HttpClientModule,
     AppRoutingModule,
     // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
   ],
-  providers: [StatusService, MessageService, OsCategoryService, ProductBuildService, OsService, WorkitemService],
+  providers: [StatusService, MessageService, OsCategoryService, ProductBuildService, OsService, WorkitemService, VersionService, ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

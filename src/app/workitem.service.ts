@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Workitem  } from './patch.class';
+import { Workitem, FakeTask  } from './patch.class';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -17,11 +17,19 @@ export class WorkitemService {
 
   constructor(private _http: HttpClient, private _messageService: MessageService) { }
 
+  syncObjects(): Observable<any> {
+    return this._http.get<any>(`${this._url}sync/`, httpOptions)
+        .pipe(
+          tap(_ => this._log(`synced objects`)),
+          catchError(this._handleError('syncObjects',{}))
+        );
+  }
+
   getObjects(): Observable<Workitem[]> {
     return this._http.get<Workitem[]>(this._url, httpOptions)
         .pipe(
           //map(resp => resp['results']),
-          tap(workitems => this._log(`fetched objects`)),
+          tap(_ => this._log(`fetched objects`)),
           catchError(this._handleError('getObjects',[]))
         );
   }
@@ -35,12 +43,30 @@ export class WorkitemService {
         );
   }
 
+  getTaskTemplates(id: number): Observable<FakeTask[]> {
+    return this._http.get<FakeTask[]>(`${this._url}${id}/tasktemplates/`, httpOptions)
+        .pipe(
+          //map(resp => resp['results']),
+          tap(faketasks => this._log(`fetched task template objects`)),
+          catchError(this._handleError('getTaskTemplates',[]))
+        );
+  }
+
   getObject(id: number): Observable<Workitem> {
     const url = `${this._url}${id}/`;
     return this._http.get<Workitem>(url)
         .pipe(
-          tap(_ => this._log(`fetched os with id=${id}`)),
+          tap(_ => this._log(`fetched object with id=${id}`)),
           catchError(this._handleError<Workitem>(`getObject id=${id}`))
+        );
+  }
+
+  syncObject(id: number): Observable<Workitem> {
+    const url = `${this._url}${id}/syncobj/`;
+    return this._http.get<Workitem>(url)
+        .pipe(
+          tap(_ => this._log(`synced object with id=${id}`)),
+          catchError(this._handleError<Workitem>(`syncObject id=${id}`))
         );
   }
 

@@ -1,13 +1,26 @@
-<h2> Workitem </h2>
+<button class="btn btn-primary" (click)="syncObjects()">SyncFromRTC</button><button class="btn btn-primary" (click)="getPatchObjects()">ReLoad</button>
+<h2> Patch Workitems </h2>
 <div>
   <ul class="workitems">
-    <li *ngFor="let workitem of workitems">
+    <li *ngFor="let workitem of patch_workitems">
       <a routerLink="/workitem-detail/{{ workitem.id }}">
         <span class="badge">{{ workitem.wi_id }}</span>
         <span class="sep">{{ workitem.status.name }}</span>
-        <span class='sep'>{{ workitem.product.name }}</span>
-        <span class='sep'>{{ workitem.version.name }}</span>
+        <span class='sep'>{{ workitem?.product?.name }}</span>
+        <span class='sep'>{{ workitem?.version?.name }}</span>
       </a>
     </li>
   </ul>
+</div>
+<h2> Recent Workitems </h2>
+<div>
+    <ul class="workitems">
+      <li *ngFor="let workitem of workitems">
+        <a routerLink="/workitem-detail/{{ workitem.id }}">
+          <span class="badge">{{ workitem.wi_id }}</span>
+          <span class="sep">{{ workitem.status.name }}</span>
+          <span class='sep'>{{ workitem?.summary }}</span>
+        </a>
+      </li>
+    </ul>
 </div>
