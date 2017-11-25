@@ -19,6 +19,9 @@ export class WorkitemDetailComponent implements OnInit {
   VERSIONS: Version[];
   PRODUCTS: Product[];
   TASKTEMPLATES: FakeTask[];
+
+  task_template: FakeTask;
+  task_finished: boolean = false;
   
   constructor(private _route: ActivatedRoute, private _location: Location, private _workitemService: WorkitemService, private _versionService: VersionService, private _productService: ProductService) { }
 
@@ -27,6 +30,11 @@ export class WorkitemDetailComponent implements OnInit {
     this.get_PRODUCTS();
     this.get_TASKTEMPLATES();
     this.getObject();
+  }
+
+  on_task_submit(id: number): void {
+    this.task_finished = true;
+    alert(`${this.workitem.task_template.task_id} =?= ${id}`);
   }
 
   get_TASKTEMPLATES(): void {
