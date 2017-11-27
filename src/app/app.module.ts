@@ -30,6 +30,9 @@ import { WorkitemDetailComponent } from './workitem-detail/workitem-detail.compo
 import { VersionService } from './version.service';
 import { ProductService } from './product.service';
 import { PatchStatusService } from './patch-status.service';
+import { TaskService } from './task.service';
+import { TaskListComponent } from './task-list/task-list.component';
+import { TaskDetailComponent } from './task-detail/task-detail.component';
 //import { NgbProgressbarLabeledComponent } from './ng-bootstrap/ngb-progressbar-labeled.component';
 
 @NgModule({
@@ -44,7 +47,9 @@ import { PatchStatusService } from './patch-status.service';
     OsListComponent,
     OsDetailComponent,
     WorkitemListComponent,
-    WorkitemDetailComponent
+    WorkitemDetailComponent,
+    TaskListComponent,
+    TaskDetailComponent
     //NgbProgressbarLabeledComponent
   ],
   imports: [
@@ -55,7 +60,7 @@ import { PatchStatusService } from './patch-status.service';
     AppRoutingModule,
     // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
   ],
-  providers: [StatusService, MessageService, OsCategoryService, ProductBuildService, OsService, WorkitemService, VersionService, ProductService, PatchStatusService],
+  providers: [StatusService, MessageService, OsCategoryService, ProductBuildService, OsService, WorkitemService, VersionService, ProductService, PatchStatusService, TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

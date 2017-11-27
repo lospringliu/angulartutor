@@ -16,17 +16,41 @@ export class Os {
     category: OsCategory;
 }
 
-export const MAP_CLASS_SERVICE = {
-    status: {
-        pk: 'statud_id',
-        cls: Status
-    },
-    oscategory: {
-        pk: 'category_id',
-        cls: OsCategory
-    },
-    os: {
-        pk: 'os_id',
-        cls: Os
-    }
+export class TaskProject {
+    task_project_id: number;
+    task?: number;
+    project?: number;
+    component?: number;
+    enable?: string;
+    patches?: string;
+}
+
+export class Task {
+    task_id: number;
+    task_name: string;
+    build_no?: number;
+    bug_prefix?: string;
+    bug_no?: number;
+    branch?: string;
+    work?: string;
+    workw?: string;
+    reldir?: string;
+    log?: string;
+    checkout?: string;
+    strip?: string;
+    auto_report?: string;
+    auto_clean?: string;
+    status?: number;
+    start_time?: string;
+    end_time?: string;
+    env?: string;
+    mailto?: string;
+    schedule?: string;
+    comments?: string;
+    user?: number;
+    threshold?: number;
+    keep_days?: number;
+    build_procedure?: string;
+    estimatetime?: string;
+    taskproject_set?: TaskProject[];
 }
