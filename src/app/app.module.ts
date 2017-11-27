@@ -29,6 +29,7 @@ import { WorkitemListComponent } from './workitem-list/workitem-list.component';
 import { WorkitemDetailComponent } from './workitem-detail/workitem-detail.component';
 import { VersionService } from './version.service';
 import { ProductService } from './product.service';
+import { PatchStatusService } from './patch-status.service';
 //import { NgbProgressbarLabeledComponent } from './ng-bootstrap/ngb-progressbar-labeled.component';
 
 @NgModule({
@@ -54,7 +55,7 @@ import { ProductService } from './product.service';
     AppRoutingModule,
     // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
   ],
-  providers: [StatusService, MessageService, OsCategoryService, ProductBuildService, OsService, WorkitemService, VersionService, ProductService],
+  providers: [StatusService, MessageService, OsCategoryService, ProductBuildService, OsService, WorkitemService, VersionService, ProductService, PatchStatusService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

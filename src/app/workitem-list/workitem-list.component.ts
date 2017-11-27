@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Workitem } from '../patch.class';
+
+import { Workitem, Status, Product, Version, FakeTask } from '../patch.class';
 import { WorkitemService } from '../workitem.service';
-// import { ProductBuildService } from '../product-build.service';
-// import { OSCATEGORIES } from '../mock';
+import { VersionService } from '../version.service';
+import { ProductService } from '../product.service';
+import { PatchStatusService } from '../patch-status.service';
 
 @Component({
   selector: 'app-workitem-list',
@@ -15,13 +17,31 @@ export class WorkitemListComponent implements OnInit {
 
   patch_workitems: Workitem[];
   workitems: Workitem[];
+  STATUSES: Status[];
+  VERSIONS: Version[];
+  PRODUCTS: Product[];
 
   //constructor(private _oscategoryService: OsCategoryService) { }
-  constructor(private _workitemService: WorkitemService) { }
+  constructor(private _workitemService: WorkitemService, private _versionService: VersionService, private _productService: ProductService, private _statusService: PatchStatusService) { }
+  
   ngOnInit() { 
     this.getPatchObjects();
     this.getObjects(); 
   }
+
+  get_STATUSES():void {
+    this._statusService.getObjects()
+        .subscribe(statuses => this.STATUSES = statuses);
+  }
+  
+  get_VERSIONS(): void {
+    this._versionService.getObjects()
+        .subscribe(versions => this.VERSIONS = versions);
+  }
+  get_PRODUCTS(): void {
+    this._productService.getObjects()
+        .subscribe(products => this.PRODUCTS = products);
+  }  
 
   getObjects() {
     this._workitemService.getObjects()

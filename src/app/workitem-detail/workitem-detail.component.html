@@ -6,24 +6,25 @@
       <form (ngSubmit)="on_task_submit(+tasktemplate.value)" #taskForm="ngForm">
         <div class="form-group">
           <label>Product:</label>
-          <input type="text" class="form-control" [(ngModel)]="workitem.product.name" name="product" id="product" readonly>
+          <input type="text" class="form-control" [(ngModel)]="product.name" name="product" id="product" readonly>
+          
         </div>
         <div class="form-group">
           <label>Version:</label>
-          <input type="text" class="form-control" [(ngModel)]="workitem.version.name" name="version" id="version" readonly>
+          <input type="text" class="form-control" [(ngModel)]="version.name" name="version" id="version" readonly>
         </div>
         <div class="form-group">
           <label>Task Template:</label>
           <select #tasktemplate name="tasktemplate" class="form-control" id="tasktemplate">
-            <option *ngFor="let otask of TASKTEMPLATES" value="{{ otask.id }}"  [selected]="otask.id === workitem?.task_template?.id">{{ otask.task_name }}</option>
+            <option *ngFor="let otask of TASKTEMPLATES" value="{{ otask.id }}"  [selected]="otask.id === workitem?.task_template">{{ otask.task_name }}</option>
           </select>
         </div>
         <div>
           <button (click)="goBack()">Go Back</button>
-          <button>Edit</button>
           <button type="submit" class="btn btn-default">Continue</button>
         </div>
         <div>{{ spy?.className }}</div>
+        <div>{{ product | json}} {{ version | json}}</div>
         <div>{{ workitem.task_template | json }}</div>
       </form>
     </div>

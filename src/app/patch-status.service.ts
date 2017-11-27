@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Status } from './Build.class';
+import { Status } from './patch.class';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -11,18 +11,18 @@ const httpOptions = {
 };
 
 @Injectable()
-export class StatusService {
+export class PatchStatusService {
 
-  private _statusUrl = 'http://ma1blds3.eng.platformlab.ibm.com:8002/api/productbuild/status/';
+  private _statusUrl = 'http://ma1blds3.eng.platformlab.ibm.com:8002/api/patchbuild/status/';
 
   constructor(private _http: HttpClient, private _messageService: MessageService) { }
 
-  getStatuses(): Observable<Status[]> {
+  getObjects(): Observable<Status[]> {
     return this._http.get<Status[]>(this._statusUrl, httpOptions)
         .pipe(
           //map(resp => resp['results']),
-          tap(statuses => this._log(`fetched statuses`)),
-          catchError(this._handleError('getStatuses',[]))
+          tap(statuses => this._log(`fetched objects`)),
+          catchError(this._handleError('getObjects',[]))
         );
   }
 
@@ -30,42 +30,32 @@ export class StatusService {
     const url = `${this._statusUrl}${id}/`;
     return this._http.get<Status>(url)
         .pipe(
-          tap(_ => this._log(`fetched status with status_id=${id}`)),
-          catchError(this._handleError<Status>(`getStatus status_id=${id}`))
+          tap(_ => this._log(`fetched object with id=${id}`)),
+          catchError(this._handleError<Status>(`getObject id=${id}`))
         );
   }
 
   updateStatus(status: Status): Observable<any> {
-    return this._http.patch(`${this._statusUrl}${status.status_id}/`, status, httpOptions)
+    return this._http.patch(`${this._statusUrl}${status.id}/`, status, httpOptions)
         .pipe(
-          tap(_ => this._log(`updated status with status_id=${status.status_id}`)),
+          tap(_ => this._log(`updated status with status_id=${status.id}`)),
           catchError(this._handleError<any>('updateStatus'))
         );
   }
 
   addStatus(status: Status): Observable<Status> {
     return this._http.post<Status>(this._statusUrl, status, httpOptions).pipe(
-      tap((status: Status) => this._log(`added Status with status_id=${status.status_id} `)),
+      tap((status: Status) => this._log(`added Status with id=${status.id} `)),
       catchError(this._handleError<Status>('addStatus'))
     );
   }
 
   deleteStatus(status: Status | number): Observable<Status> {
-    const id = typeof status === 'number' ? status : status.status_id;
+    const id = typeof status === 'number' ? status : status.id;
     const url = `${this._statusUrl}${id}/`;
     return this._http.delete<Status>(url,httpOptions).pipe(
-      tap(_ => this._log(`deleted Status status_id=${id}`)),
+      tap(_ => this._log(`deleted Status id=${id}`)),
       catchError(this._handleError<Status>('deleteStatus'))
-    );
-  }
-
-  searchStatuses(term: string): Observable<Status[]>{
-    if ( !term.trim()) {
-      return of([]);
-    }
-    return this._http.get<Status[]>(`${this._statusUrl}?status_name=${term}`).pipe(
-      tap(_ => this._log(`found statues matching "${term}"`)),
-      catchError(this._handleError<Status[]>('searchStatuses',[]))
     );
   }
 

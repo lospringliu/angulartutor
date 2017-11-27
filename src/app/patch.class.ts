@@ -78,10 +78,13 @@ export class Workitem {
     id: number;
     wi_id: number;
     summary?: string;
-    status?: Status;
-    product?: Product;
+    //status?: Status;
+    status?: number;
+    //product?: Product;
+    product?: number;
     uuid?: string;
-    version?: Version;
+    //version?: Version;
+    version?: number;
     platforms_string?: string;
     platforms?: Platform[];
     filelist?: string;
@@ -102,7 +105,8 @@ export class Workitem {
     updated?: any;
     timestamp?: any;
     created?: any;
-    task_template?: FakeTask;
+    //task_template?: FakeTask;
+    task_template: number;
     locked?: boolean;
     file_task?: string;
     file_config?: string;
