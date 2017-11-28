@@ -2,7 +2,7 @@
   <h3>{{ "Select components" | uppercase }}</h3>
   <div class="container">
     <div [hidden]="!show_components_select()">
-      <form (ngSubmit)="on_task_submit()" #taskForm="ngForm">
+      <form (ngSubmit)="on_components_select()" #taskForm="ngForm">
         <div class="form-group">
           <div *ngFor="let taskproject of task.taskprojects">
             <input type="checkbox" [checked]="taskproject.enable === 'Y'" (click)="toggle_enable_taskproject(taskproject)" />
@@ -21,19 +21,24 @@
   </div>
   <div [hidden]="!show_oses_select()">
     <h3> SELECT OS </h3>
-    <table class="table">
+    <table class="table table-striped table-hover">
       <thead>
         <th>&nbsp;</th>
-        <th *ngFor="let taskproject of TASKPROJECTS">{{ taskproject?.component?.component_name }}</th>
+        <th *ngFor="let taskproject of TASKPROJECTS" (click)="toggle_enable_taskproject(taskproject)">{{ taskproject?.component?.component_name }}</th>
       </thead>
       <tbody>
-        <tr *ngFor="let taskprojectos of task.taskprojectoses">
-          <td>{{ taskprojectos.os?.os_name }}</td>
-          <td *ngFor="let taskproject of TASKPROJECTS"><input type="checkbox" [checked]="taskproject.enable === 'Y'"  (click)="toggle_enable_taskproject(taskproject)" /></td>
+        <tr *ngFor="let os_name of OSES">
+          <td>{{ os_name }}</td>
+          <td *ngFor="let taskproject of TASKPROJECTS">
+            <div *ngIf="exists_taskproject_os(os_name, taskproject)">
+              <input type="checkbox" [checked]="checked_taskproject_os(os_name, taskproject)" (click)="toggle_taskproject_os_selected(os_name, taskproject)" />
+            </div>
+          </td>
         </tr>  
       </tbody>
     </table>
   </div>
-  <div>{{ components | json}} </div>
-  <div> {{ task.taskprojectoses | json }}</div>
+  <div>{{ TASKPROJECTS | json}} </div>
+  <div>{{ TASKPROJECTOSES | json}} </div>
+  <!--<div> {{ task.taskprojectoses | json }}</div> -->
 </div>

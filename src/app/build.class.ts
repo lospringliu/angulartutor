@@ -57,8 +57,8 @@ export class TaskProjectOs {
     sequence?: number;
     host?: number;
     status?: number;
-    project_os: number;
-    job_host: string;
+    project_os?: number;
+    job_host?: string;
 }
 
 export class Task {

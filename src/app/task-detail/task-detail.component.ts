@@ -11,8 +11,8 @@ import { StatusService } from '../status.service';
   styleUrls: ['./task-detail.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class TaskDetailComponent implements OnInit {
 
+export class TaskDetailComponent implements OnInit {
   task_id: number;
   task: Task;
   status: Status;
@@ -23,16 +23,31 @@ export class TaskDetailComponent implements OnInit {
   STATUSES: Status[];
   TASKPROJECTS: TaskProject[];
   TASKPROJECTOSES: TaskProjectOs[];
-  components: BuildComponent[];
-  oses: Os[];
+  COMPONENTS: BuildComponent[];
+  OSES: any[];
   
   constructor(private _route: ActivatedRoute, private _location: Location, private _taskService: TaskService, private  _statusService: StatusService) { }
-  
-  ngOnInit() {
-    this.task_id = +this._route.snapshot.paramMap.get('id') ;
-    this.get_STATUSES();
-    this.getObject();
-    }
+
+  exists_taskproject_os(os_name: string, taskproject: TaskProject) {
+    //return Math.random() > 0.5;
+    return this.TASKPROJECTOSES.filter(tpo => tpo.os.os_name === os_name && tpo.component.component_id === taskproject.component.component_id).length > 0;
+  }
+
+  checked_taskproject_os(os_name: string, taskproject: TaskProject) {
+    return this.TASKPROJECTOSES.filter(tpo => tpo.os.os_name === os_name && tpo.component.component_id === taskproject.component.component_id)[0].enable == 'Y';
+  }
+
+  toggle_taskproject_os_selected(os_name: string, taskproject: TaskProject) {
+    for (var tpo of this.TASKPROJECTOSES) { 
+      if (tpo.os.os_name === os_name && tpo.component.component_id === taskproject.component.component_id){
+        if (tpo.enable == 'Y') {
+          tpo.enable = 'N';
+        } else {
+          tpo.enable = 'Y';
+        }    
+      }
+    };
+  }
   
   toggle_components_selected() {
     this.components_selected = !this.components_selected;
@@ -47,11 +62,28 @@ export class TaskDetailComponent implements OnInit {
     return ! this.oses_selected && this.components_selected ;
   }
 
-  on_task_submit() {
-    this.components_selected = true ;
+  on_components_select() {
     this.TASKPROJECTS = this.task.taskprojects.filter(comp => comp.enable === "Y");
-    this.components = this.TASKPROJECTS.map(tp => tp.component);
-    this.task.taskprojectoses.filter((tpo) => tpo.component.component_id in this.components.map(component => component.component_name === "ego"));
+    this.TASKPROJECTOSES = this.task.taskprojectoses;
+    this.COMPONENTS = this.TASKPROJECTS.map(tp => tp.component);
+    
+    //for ( var comp of components_not_selected ) {   
+    for ( var comp of this.task.taskprojects.filter(comp => comp.enable === 'N').map(tp => tp.component)) {
+      this.TASKPROJECTOSES = this.TASKPROJECTOSES.filter( (tpo) => tpo.component.component_id !== comp.component_id );
+    }
+    this.OSES = this.TASKPROJECTOSES.map(tpo => tpo.os.os_name);
+    this.OSES = this.OSES.filter((e,i,s) => s.indexOf(e) === i);
+    this.OSES.sort((x,y) => {
+      if (x > y) {
+        return 1;
+      } else if (x < y) {
+        return -1;
+      }
+      else {
+        return 0;
+      }
+    });
+    this.components_selected = true;
   }
 
   toggle_enable_taskproject(obj: TaskProject): void {
@@ -62,7 +94,13 @@ export class TaskDetailComponent implements OnInit {
       obj.enable = "Y"
     }
   }
-
+  
+  ngOnInit() {
+    this.task_id = +this._route.snapshot.paramMap.get('id') ;
+    this.get_STATUSES();
+    this.getObject();
+    }
+  
   get_STATUSES():void {
     this._statusService.getStatuses()
          .subscribe(statuses => this.STATUSES = statuses);
