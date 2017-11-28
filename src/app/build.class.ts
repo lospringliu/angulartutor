@@ -88,6 +88,6 @@ export class Task {
     keep_days?: number;
     build_procedure?: string;
     estimatetime?: string;
-    taskproject_set?: TaskProject[];
-    taskprojectos_set?: TaskProjectOs[];
+    taskprojects?: TaskProject[];
+    taskprojectoses?: TaskProjectOs[];
 }

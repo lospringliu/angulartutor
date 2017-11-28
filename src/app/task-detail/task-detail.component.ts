@@ -18,11 +18,11 @@ export class TaskDetailComponent implements OnInit {
   status: Status;
   taskproject: TaskProject;
   components_selected = false;
-  os_selected = false;
+  oses_selected = false;
   
   STATUSES: Status[];
   TASKPROJECTS: TaskProject[];
-  TASKPROJECTOSes: TaskProjectOs[];
+  TASKPROJECTOSES: TaskProjectOs[];
   components: BuildComponent[];
   oses: Os[];
   
@@ -34,11 +34,24 @@ export class TaskDetailComponent implements OnInit {
     this.getObject();
     }
   
+  toggle_components_selected() {
+    this.components_selected = !this.components_selected;
+    this.oses_selected = false;
+  }
+
+  show_components_select() {
+    return ! this.components_selected;
+  }
+
+  show_oses_select() {
+    return ! this.oses_selected && this.components_selected ;
+  }
+
   on_task_submit() {
     this.components_selected = true ;
-    this.TASKPROJECTS = this.task.taskproject_set.filter(comp => comp.enable === "Y");
+    this.TASKPROJECTS = this.task.taskprojects.filter(comp => comp.enable === "Y");
     this.components = this.TASKPROJECTS.map(tp => tp.component);
-    this.task.taskprojectos_set.filter((tpo) => tpo.component.component_id in this.components.map(component => component.component_name === "ego"));
+    this.task.taskprojectoses.filter((tpo) => tpo.component.component_id in this.components.map(component => component.component_name === "ego"));
   }
 
   toggle_enable_taskproject(obj: TaskProject): void {

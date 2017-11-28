@@ -14,6 +14,7 @@ const httpOptions = {
 export class TaskService {
     
   private _url = 'http://ma1blds3.eng.platformlab.ibm.com:8002/api/productbuild/task/';
+  private _urlDetail = 'http://ma1blds3.eng.platformlab.ibm.com:8002/api/productbuild/detail_task/';
 
   constructor(private _http: HttpClient, private _messageService: MessageService) { }
 
@@ -36,7 +37,7 @@ export class TaskService {
   }
 
   getObject(id: number): Observable<Task> {
-    const url = `${this._url}${id}/`;
+    const url = `${this._urlDetail}${id}/`;
     return this._http.get<Task>(url)
         .pipe(
           tap(_ => this._log(`fetched object with id=${id}`)),
