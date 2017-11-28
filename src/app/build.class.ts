@@ -16,13 +16,49 @@ export class Os {
     category: OsCategory;
 }
 
+export class Product {
+    product_id: number;
+    product_name: string;
+}
+
+export class Project {
+    project_id: number;
+    project_name: string;
+    version: string;
+    product: Product;
+}
+
+export class Component {
+    component_id: number;
+    component_name: string;
+    cvs: string;
+    project: number;
+    depend_components: string;
+}
+
 export class TaskProject {
     task_project_id: number;
-    task?: number;
-    project?: number;
-    component?: number;
-    enable?: string;
+    task: number;
+    project: Project;
+    component: Component;
+    enable: string;
     patches?: string;
+}
+
+export class TaskProjectOs {
+    task_project_os_id: number;
+    task: number;
+    project: Project;
+    component: Component;
+    os: Os;
+    enable: string;
+    start_time?: string;
+    end_time?: string;
+    sequence?: number;
+    host?: number;
+    status?: number;
+    project_os: number;
+    job_host: string;
 }
 
 export class Task {
@@ -53,4 +89,5 @@ export class Task {
     build_procedure?: string;
     estimatetime?: string;
     taskproject_set?: TaskProject[];
+    taskprojectos_set?: TaskProjectOs[];
 }
