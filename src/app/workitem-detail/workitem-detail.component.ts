@@ -6,6 +6,7 @@ import { WorkitemService } from '../workitem.service';
 import { VersionService } from '../version.service';
 import { ProductService } from '../product.service';
 import { PatchStatusService } from '../patch-status.service';
+import { WorkitemTaskDetailComponent } from './workitem-task-detail/workitem-task-detail.component';
 
 @Component({
   selector: 'app-workitem-detail',
@@ -29,7 +30,9 @@ export class WorkitemDetailComponent implements OnInit {
   TASKTEMPLATES: FakeTask[];
 
   task_template: FakeTask;
-  task_finished: boolean = false;
+  template_finished: boolean = false;
+
+  readonly_file_task: boolean = true;
   
   constructor(private _route: ActivatedRoute, private _location: Location, private _workitemService: WorkitemService, private _versionService: VersionService, private _productService: ProductService, private _statusService: PatchStatusService) { }
 
@@ -42,12 +45,13 @@ export class WorkitemDetailComponent implements OnInit {
     this.getObject();
   }
 
-  on_task_submit(id: number): void {
-    this.task_finished = true;
+  on_template_submit(id: number): void {
     if ( this.workitem.task_template !== id ) {
       this.workitem.task_template = id;
       this.save();
     } 
+    this.template_finished = true;
+    this.workitem.file_task += "task template selected\n"
   }
 
   get_TASKTEMPLATES(): void {
@@ -123,6 +127,11 @@ export class WorkitemDetailComponent implements OnInit {
     //this._workitemService.updateObject({ id: this.workitem.id, product: this.workitem.product, version: this.workitem.version, task_template: this.workitem.task_template } as Workitem)
     this._workitemService.updateObject( this.workitem )
         .subscribe(() => alert('workitem saved!'));
+  }
+
+  onTaskFile(taskfile: string) {
+    this.workitem.file_task = taskfile ;
+    this.readonly_file_task = false ;
   }
 
   goBack(): void {

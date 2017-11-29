@@ -1,33 +1,68 @@
-<h3>{{ workitem?.summary | uppercase }}</h3>
-<div *ngIf="workitem">
-  <div class="container">
-    <div [hidden]="task_finished">
-      <a href="https://jazz07.rchland.ibm.com:21443/jazz/web/projects/pc-management#action=com.ibm.team.workitem.viewWorkItem&id={{ workitem?.wi_id }}" target="_new"><button class="btn btn-primary">OpenInRTC</button></a><button class="btn btn-primary" (click)="syncObject()">SyncFromRTC</button>    
-      <form (ngSubmit)="on_task_submit(+tasktemplate.value)" #taskForm="ngForm">
-        <div class="form-group">
-          <label>Product:</label>
-          <input type="text" class="form-control" value="{{ product?.name }}" name="product" id="product" readonly>
-        </div>
-        <div class="form-group">
-          <label>Version:</label>
-          <input type="text" class="form-control" value="{{ version?.name }}" name="version" id="version" readonly>
-        </div>
-        <div class="form-group">
-          <label>Task Template:</label>
-          <select #tasktemplate name="tasktemplate" class="form-control" id="tasktemplate">
-            <option *ngFor="let otask of TASKTEMPLATES" value="{{ otask.id }}"  [selected]="otask.id === workitem?.task_template">{{ otask.task_name }}</option>
-          </select>
-        </div>
-        <div>
-          <button (click)="goBack()">Go Back</button>
-          <button type="submit" class="btn btn-default">Continue</button>
-        </div>
-        <div>{{ product | json}} {{ version | json}}</div>
-        <div>{{ workitem?.task_template | json }}</div>
-      </form>
+<div class="text-center">  <h3>{{ workitem?.wi_id }}: {{ workitem?.summary | uppercase }}</h3> <a href="https://jazz07.rchland.ibm.com:21443/jazz/web/projects/pc-management#action=com.ibm.team.workitem.viewWorkItem&id={{ workitem?.wi_id }}" target="_new"><button class="btn btn-primary">OpenInRTC</button></a><button class="btn btn-primary" (click)="syncObject()">SyncFromRTC</button>    </div>
+<div class="row" >
+  <div class="col-xs-12 col-md-6">
+      <div *ngIf="workitem">
+          <div>
+              <div class="form-group">
+                  <label>Product Info</label>
+                  <input type="text" class="form-control" value="{{ product?.name }} - {{ version?.name }}" name="product" id="product" readonly />
+              </div>            
+              <div class="form-group">
+                  <label>Platforms</label>
+                  <textarea type="text" class="form-control" [(ngModel)]="workitem.platforms_string" name="platforms_string" id="platforms_string" ></textarea>
+              </div>
+                <div class="form-group">
+                  <label>Source Code Streams:</label>
+                  <textarea type="text" class="form-control" [(ngModel)]="workitem.streams" name="streams" id="streams" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Build Binaries:</label>
+                    <textarea rows=5 class="form-control" [(ngModel)]="workitem.binaries" name="binaries" id="binaries" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Task File</label>
+                    <textarea rows=10 class="form-control" [(ngModel)]="workitem.file_task" name="file_task" id="file_task" [readonly]="readonly_file_task"></textarea>
+                </div>
+  
+                <div>
+                  <button class="btn btn-default" [disabled]="readonly_file_task" (click)="save()">SaveTask</button>
+                </div>
+            </div>
+      </div>
+  </div>
+  <div class="col-xs-12 col-md-6">
+
+  <div *ngIf="workitem">
+    <h3>Select Task Template</h3>
+    <div [hidden]="!template_finished">
+          <button class="btn btn-default" (click)="template_finished=!template_finished">Select Task Template</button>
+    </div>    
+     <div [hidden]="template_finished">
+        <form (ngSubmit)="on_template_submit(+tasktemplate.value)" #taskForm="ngForm">
+          <div class="form-group">
+            <label>Product:</label>
+            <input type="text" class="form-control" value="{{ product?.name }}" name="product" id="product" readonly>
+          </div>
+          <div class="form-group">
+            <label>Version:</label>
+            <input type="text" class="form-control" value="{{ version?.name }}" name="version" id="version" readonly>
+          </div>
+          <div class="form-group">
+            <label>Task Template:</label>
+            <select #tasktemplate name="tasktemplate" class="form-control" id="tasktemplate">
+              <option *ngFor="let otask of TASKTEMPLATES" value="{{ otask.id }}"  [selected]="otask.id === workitem?.task_template">{{ otask.task_name }}</option>
+            </select>
+          </div>
+          <div>
+            <button (click)="goBack()">Go Back</button>
+            <button type="submit" class="btn btn-default">Go Next</button>
+          </div>
+        </form>
+      </div>
     </div>
-    <div [hidden]="!task_finished">
-      <button class="btn btn-default" (click)="task_finished=!task_finished">edit task</button>
+    <div *ngIf="template_finished">
+        <workitem-task-detail [workitem]="workitem" (onTaskFile)="onTaskFile($event)"></workitem-task-detail>
     </div>
+      
   </div>
 </div>

@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { Workitem, Status, Product, Version, FakeTask } from '../patch.class';
 import { WorkitemService } from '../workitem.service';
@@ -22,7 +24,7 @@ export class WorkitemListComponent implements OnInit {
   PRODUCTS: Product[];
 
   //constructor(private _oscategoryService: OsCategoryService) { }
-  constructor(private _workitemService: WorkitemService, private _versionService: VersionService, private _productService: ProductService, private _statusService: PatchStatusService) { }
+  constructor(private _workitemService: WorkitemService, private _router: Router, private _location: Location, private _versionService: VersionService, private _productService: ProductService, private _statusService: PatchStatusService) { }
   
   ngOnInit() { 
     this.getPatchObjects();
@@ -75,5 +77,8 @@ export class WorkitemListComponent implements OnInit {
     this._workitemService.deleteObject(workitem).subscribe();
   }
 
+  goTo(workitem: Workitem) {
+    this._router.navigate(['/workitem-detail/', workitem.wi_id]);
+  }
 }
 

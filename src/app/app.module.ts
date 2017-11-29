@@ -33,6 +33,7 @@ import { PatchStatusService } from './patch-status.service';
 import { TaskService } from './task.service';
 import { TaskListComponent } from './task-list/task-list.component';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
+import { WorkitemTaskDetailComponent } from './workitem-detail/workitem-task-detail/workitem-task-detail.component';
 //import { NgbProgressbarLabeledComponent } from './ng-bootstrap/ngb-progressbar-labeled.component';
 
 @NgModule({
@@ -49,7 +50,8 @@ import { TaskDetailComponent } from './task-detail/task-detail.component';
     WorkitemListComponent,
     WorkitemDetailComponent,
     TaskListComponent,
-    TaskDetailComponent
+    TaskDetailComponent,
+    WorkitemTaskDetailComponent
     //NgbProgressbarLabeledComponent
   ],
   imports: [

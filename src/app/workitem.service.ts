@@ -71,7 +71,7 @@ export class WorkitemService {
   }
 
   updateObject(obj: Workitem): Observable<any> {
-    return this._http.patch(`${this._url}${obj.id}/`, { id: obj.id, wi_id: obj.wi_id, product: obj.product, version: obj.version, task_template: obj.task_template } as Workitem, httpOptions)
+    return this._http.patch(`${this._url}${obj.id}/`, { id: obj.id, wi_id: obj.wi_id, product: obj.product, version: obj.version, task_template: obj.task_template, file_task: obj.file_task, file_config: obj.file_config, file_makefile: obj.file_makefile } as Workitem, httpOptions)
     //return this._http.post(`${this._url}`, obj, httpOptions)
         .pipe(
           tap(_ => this._log(`updated object with id=${obj.id}`)),
