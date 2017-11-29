@@ -25,7 +25,8 @@
                 </div>
   
                 <div>
-                  <button class="btn btn-default" [disabled]="readonly_file_task" (click)="save()">SaveTask</button>
+                  <button class="btn btn-default" (click)="readonly_file_task=false" [disabled]="!readonly_file_task">EditTask</button>
+                  <button class="btn btn-default" [disabled]="readonly_file_task" (click)="save();readonly_file_task=true">SaveTask</button>
                 </div>
             </div>
       </div>
@@ -35,7 +36,7 @@
   <div *ngIf="workitem">
     <h3>Select Task Template</h3>
     <div [hidden]="!template_finished">
-          <button class="btn btn-default" (click)="template_finished=!template_finished">Select Task Template</button>
+      <button class="btn btn-default" (click)="template_finished=!template_finished">Select Task Template</button>
     </div>    
      <div [hidden]="template_finished">
         <form (ngSubmit)="on_template_submit(+tasktemplate.value)" #taskForm="ngForm">
@@ -54,8 +55,7 @@
             </select>
           </div>
           <div>
-            <button (click)="goBack()">Go Back</button>
-            <button type="submit" class="btn btn-default">Go Next</button>
+            <button type="submit" class="btn btn-primary">Go Next</button>
           </div>
         </form>
       </div>
