@@ -22,7 +22,6 @@ export class WorkitemDetailComponent implements OnInit {
   status: Status;
   version: Version;
   product: Product;
-  tasktemplate: FakeTask;
 
   STATUSES: Status[];
   VERSIONS: Version[];
@@ -46,12 +45,12 @@ export class WorkitemDetailComponent implements OnInit {
   }
 
   on_template_submit(id: number): void {
+    this.get_TaskTemplate(id);
     if ( this.workitem.task_template !== id ) {
       this.workitem.task_template = id;
       this.save();
     } 
     this.template_finished = true;
-    this.workitem.file_task += "task template selected\n"
   }
 
   get_TASKTEMPLATES(): void {
@@ -70,6 +69,10 @@ export class WorkitemDetailComponent implements OnInit {
             return 0;
           }
         }));
+  }
+
+  get_TaskTemplate(id: number): void {
+    this.task_template = this.TASKTEMPLATES.filter(faketask => faketask.id === id)[0];
   }
 
   get_STATUSES():void {

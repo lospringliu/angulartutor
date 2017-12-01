@@ -15,7 +15,7 @@
         </div>
     </div>
     <div [hidden]="show_components_select()">
-      <button class="btn btn-default" (click)="toggle_components_selected()">Select Components</button>
+      <div *ngFor="let tp of TASKPROJECTS">{{ tp.component.component_name }}</div><button class="btn btn-default" (click)="toggle_components_selected()">Select Components</button>
     </div>
   </div>
   <div [hidden]="!show_oses_select()">
@@ -25,6 +25,13 @@
           <button class="btn btn-primary" (click)="generate_task_file();send_task_file()">Update Task File</button>
         </div>
     </div>
+    <div class="row">
+        <div class="col col-sm-2"><input type="checkbox" [checked]="task.checkout === 'Y'" (click)="toggle_task_checkout()">checkout</div>
+        <div class="col col-sm-1"></div>
+        <div class="col col-sm-2"><input type="checkbox" [checked]="task.strip === 'Y'" (click)="toggle_task_strip()">strip</div>
+        <div class="col col-sm-1"></div>
+        <div class="col col-sm-2"><input type="checkbox" [checked]="cpcvs" (click)="toggle_task_cpcvs()">cpcvs</div>
+    </div>    
     <table class="table table-striped table-hover">
       <thead>
         <th>&nbsp;</th>

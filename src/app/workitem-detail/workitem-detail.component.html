@@ -1,4 +1,5 @@
-<div class="text-center">  <h3>{{ workitem?.wi_id }}: {{ workitem?.summary | uppercase }}</h3> <a href="https://jazz07.rchland.ibm.com:21443/jazz/web/projects/pc-management#action=com.ibm.team.workitem.viewWorkItem&id={{ workitem?.wi_id }}" target="_new"><button class="btn btn-primary">OpenInRTC</button></a><button class="btn btn-primary" (click)="syncObject()">SyncFromRTC</button>    </div>
+<div class="text-center">  <h3>RTC {{ workitem?.wi_id }} Patch Build </h3> <a href="https://jazz07.rchland.ibm.com:21443/jazz/web/projects/pc-management#action=com.ibm.team.workitem.viewWorkItem&id={{ workitem?.wi_id }}" target="_new"><button class="btn btn-primary">OpenInRTC</button></a><button class="btn btn-primary" (click)="syncObject()">SyncFromRTC</button>    </div>
+<hr>
 <div class="row" >
   <div class="col-xs-12 col-md-6">
       <div *ngIf="workitem">
@@ -26,7 +27,7 @@
   
                 <div>
                   <button class="btn btn-default" (click)="readonly_file_task=false" [disabled]="!readonly_file_task">EditTask</button>
-                  <button class="btn btn-default" [disabled]="readonly_file_task" (click)="save();readonly_file_task=true">SaveTask</button>
+                  <button class="btn btn-primary" [disabled]="readonly_file_task" (click)="save();readonly_file_task=true">SaveTask</button>
                 </div>
             </div>
       </div>
@@ -36,7 +37,7 @@
   <div *ngIf="workitem">
     <h3>Select Task Template</h3>
     <div [hidden]="!template_finished">
-      <button class="btn btn-default" (click)="template_finished=!template_finished">Select Task Template</button>
+      {{ task_template?.task_name }}<button class="btn btn-default" (click)="template_finished=!template_finished">Select Task Template</button>
     </div>    
      <div [hidden]="template_finished">
         <form (ngSubmit)="on_template_submit(+tasktemplate.value)" #taskForm="ngForm">
@@ -63,6 +64,5 @@
     <div *ngIf="template_finished">
         <workitem-task-detail [workitem]="workitem" (onTaskFile)="onTaskFile($event)"></workitem-task-detail>
     </div>
-      
   </div>
 </div>
