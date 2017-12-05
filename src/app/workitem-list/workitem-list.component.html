@@ -9,10 +9,10 @@
       <tbody>
         <tr *ngFor="let workitem of patch_workitems" (click)="goTo(workitem)">
           <td>{{ workitem.wi_id }}</td>
-          <td>{{ workitem.status }}</td>  
-          <td>{{ workitem?.product }}</td>
-          <td>{{ workitem?.version}}</td>
-          <td>{{ workitem?.summary }}</td>
+          <td>{{ workitem.status?.name }}</td>  
+          <td>{{ workitem.product?.name }}</td>
+          <td>{{ workitem.version?.name }}</td>
+          <td>{{ workitem.summary }}</td>
         </tr>  
       </tbody>
     </table>
@@ -26,10 +26,10 @@
       <tbody>
         <tr *ngFor="let workitem of workitems" (click)="goTo(workitem)">
           <td>{{ workitem.wi_id }}</td>
-          <td>{{ workitem.status }}</td>  
-          <td>{{ workitem?.product }}</td>
-          <td>{{ workitem?.version}}</td>
-          <td>{{ workitem?.summary }}</td>
+          <td>{{ workitem.status?.name }}</td>  
+          <td>{{ workitem.product?.name }}</td>
+          <td>{{ workitem.version?.name }}</td>
+          <td>{{ workitem.summary }}</td>
         </tr>  
       </tbody>
     </table>

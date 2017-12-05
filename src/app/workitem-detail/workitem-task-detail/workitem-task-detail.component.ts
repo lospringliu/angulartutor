@@ -55,8 +55,8 @@ export class WorkitemTaskDetailComponent implements OnInit, AfterViewInit {
     this.taskfile += `[workw]   \t${this.task.workw}\n`;
     this.taskfile += `[log]     \t${this.task.work}/logs\n`;
     this.taskfile += `[logw]    \t${this.task.workw}/logs\n`;
-    this.taskfile += `[release] \t${this.task.reldir}\n`;
-    this.taskfile += `[keepdays] \t${this.task.keep_days}\n`;
+    this.taskfile += `[release] \t${this.workitem.reldir || "/pcc/hq-china/hi-priority/patch/attention"}\n`;
+    this.taskfile += `[keepdays] \t${this.task.keep_days || 3}\n`;
     this.taskfile += `\n[begin]   \t${this.task.checkout === "Y" ? 'checkout' : 'none'}\n`;
     this.taskfile += `[cpcvs]   \t${this.cpcvs ? "yes" : "none" }\n`;
     this.taskfile += `[strip]   \t${this.task.strip === 'Y' ? 'strip' : 'none'}\n`;
@@ -206,9 +206,9 @@ export class WorkitemTaskDetailComponent implements OnInit, AfterViewInit {
   
   ngOnInit() {
     this.task_id = this.workitem.task_template;
-    this.get_STATUSES();
     this.getObject();
-    }
+    this.get_STATUSES();  
+  }
   
   get_STATUSES():void {
     this._statusService.getStatuses()
@@ -223,6 +223,66 @@ export class WorkitemTaskDetailComponent implements OnInit, AfterViewInit {
     this._taskService.getObject(this.task_id)
         .subscribe(task => {
           //this.get_Status(task.status);
+          task.reldir = this.workitem.reldir;
+
+          if (this.workitem.product.default_components) {
+            task.taskprojects.forEach(
+              tp => {
+                if ( this.workitem.product.default_components.split(/\s*,\s*/).indexOf(tp.component.component_name) > -1 ) {
+                  tp.enable = 'Y';
+                } else {
+                  tp.enable = 'N';
+                }
+              }
+            );
+          }
+          if (this.workitem.platforms.length > 0) {
+            task.taskprojectoses.forEach(
+              tpo => {
+                let tp = task.taskprojects.filter( tp => tp.component.component_id === tpo.component.component_id )[0];
+                if (tp !== undefined && tp !== null) {
+                  if (tp.enable === 'Y') {
+                    if ( this.workitem.platforms.map(p => p.name).indexOf(tpo.os.os_name) > -1 ) {
+                      tpo.enable = 'Y';
+                    } else {
+                      tpo.enable = 'N';
+                    }
+                  }
+                }
+              }
+            );
+          } else {
+            // try to exclude some obvious os
+            task.taskprojectoses.forEach(
+              tpo => {
+                let tp = task.taskprojects.filter( tp => tp.component.component_id === tpo.component.component_id )[0];
+                if (tp !== undefined && tp !== null) {
+                  if ( tp.enable === 'Y' ) {
+                    if ( !/Win/i.test(this.workitem.platforms_string) ) {
+                      if ( /win/i.test(tpo.os.category.category_name) ) {
+                        tpo.enable = 'N';
+                      }
+                    }
+                    if ( !/ppc/i.test(this.workitem.platforms_string) ) {
+                      if ( /ppc/i.test(tpo.os.os_name) ) {
+                        tpo.enable = 'N';
+                      }
+                    }
+                    if ( !/Aix/i.test(this.workitem.platforms_string) ) {
+                      if ( /aix/i.test(tpo.os.category.category_name) ) {
+                        tpo.enable = 'N';
+                      }
+                    }
+                    if ( !/Solaris/i.test(this.workitem.platforms_string) ) {
+                      if ( /solaris/i.test(tpo.os.category.category_name) ) {
+                        tpo.enable = 'N';
+                      }
+                    }
+                  }
+                }
+              }
+            )
+          }
           this.task = task;
           this.project = this.task.taskprojects[0].project ;
         });

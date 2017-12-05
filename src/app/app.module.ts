@@ -15,7 +15,12 @@ import { OsCategoryService } from './os-category.service';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-//import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import {DefaultComponent} from './default';
+import {GettingStarted} from './getting-started';
+//import {NgbdDemoModule} from './components';
+import {NgbdSharedModule} from './shared';
 
 // import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryDataService } from './in-memory-data.service';
@@ -34,7 +39,7 @@ import { TaskService } from './task.service';
 import { TaskListComponent } from './task-list/task-list.component';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { WorkitemTaskDetailComponent } from './workitem-detail/workitem-task-detail/workitem-task-detail.component';
-//import { NgbProgressbarLabeledComponent } from './ng-bootstrap/ngb-progressbar-labeled.component';
+import { NgbProgressbarLabeledComponent } from './ng-bootstrap/ngb-progressbar-labeled.component';
 
 @NgModule({
   declarations: [
@@ -51,16 +56,20 @@ import { WorkitemTaskDetailComponent } from './workitem-detail/workitem-task-det
     WorkitemDetailComponent,
     TaskListComponent,
     TaskDetailComponent,
-    WorkitemTaskDetailComponent
-    //NgbProgressbarLabeledComponent
+    WorkitemTaskDetailComponent,
+    NgbProgressbarLabeledComponent,
+    DefaultComponent,
+    GettingStarted
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    //NgbModule.forRoot(),
+    NgbModule.forRoot(),
     HttpClientModule,
     AppRoutingModule,
     // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
+    //NgbdDemoModule,
+    NgbdSharedModule
   ],
   providers: [StatusService, MessageService, OsCategoryService, ProductBuildService, OsService, WorkitemService, VersionService, ProductService, PatchStatusService, TaskService],
   bootstrap: [AppComponent]

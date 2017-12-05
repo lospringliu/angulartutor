@@ -19,9 +19,9 @@ export class WorkitemListComponent implements OnInit {
 
   patch_workitems: Workitem[];
   workitems: Workitem[];
-  STATUSES: Status[];
-  VERSIONS: Version[];
-  PRODUCTS: Product[];
+  //STATUSES: Status[];
+  //VERSIONS: Version[];
+  //PRODUCTS: Product[];
 
   //constructor(private _oscategoryService: OsCategoryService) { }
   constructor(private _workitemService: WorkitemService, private _router: Router, private _location: Location, private _versionService: VersionService, private _productService: ProductService, private _statusService: PatchStatusService) { }
@@ -30,20 +30,6 @@ export class WorkitemListComponent implements OnInit {
     this.getPatchObjects();
     this.getObjects(); 
   }
-
-  get_STATUSES():void {
-    this._statusService.getObjects()
-        .subscribe(statuses => this.STATUSES = statuses);
-  }
-  
-  get_VERSIONS(): void {
-    this._versionService.getObjects()
-        .subscribe(versions => this.VERSIONS = versions);
-  }
-  get_PRODUCTS(): void {
-    this._productService.getObjects()
-        .subscribe(products => this.PRODUCTS = products);
-  }  
 
   getObjects() {
     this._workitemService.getObjects()

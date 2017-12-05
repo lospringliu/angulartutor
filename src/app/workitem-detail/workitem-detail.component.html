@@ -6,13 +6,21 @@
           <div>
               <div class="form-group">
                   <label>Product Info</label>
-                  <input type="text" class="form-control" value="{{ product?.name }} - {{ version?.name }}" name="product" id="product" readonly />
+                  <input type="text" class="form-control" value="{{ workitem.product.name }} - {{ workitem.product.product_name }} - {{ workitem.version?.name }}" name="product" id="product" readonly />
+              </div>            
+              <div class="form-group">
+                <label>Release Directory</label>
+                <input type="text" class="form-control" [(ngModel)]="workitem.reldir" name="reldir" id="reldir" />
               </div>            
               <div class="form-group">
                   <label>Platforms</label>
                   <textarea type="text" class="form-control" [(ngModel)]="workitem.platforms_string" name="platforms_string" id="platforms_string" ></textarea>
               </div>
-                <div class="form-group">
+              <div class="form-group">
+                <label>Packages</label>
+                <input type="text" class="form-control" [(ngModel)]="workitem.packages" name="packages" id="packages" />
+              </div>
+              <div class="form-group">
                   <label>Source Code Streams:</label>
                   <textarea type="text" class="form-control" [(ngModel)]="workitem.streams" name="streams" id="streams" ></textarea>
                 </div>
@@ -26,8 +34,9 @@
                 </div>
   
                 <div>
-                  <button class="btn btn-default" (click)="readonly_file_task=false" [disabled]="!readonly_file_task">EditTask</button>
+                  <button class="btn btn-default" (click)="readonly_file_task=false" [disabled]="!readonly_file_task">UnlockTask</button>
                   <button class="btn btn-primary" [disabled]="readonly_file_task" (click)="save();readonly_file_task=true">SaveTask</button>
+                  <button class="btn btn-primary" [disabled]="readonly_file_task" (click)="run();readonly_file_task=true">RunTask</button>
                 </div>
             </div>
       </div>
@@ -43,11 +52,11 @@
         <form (ngSubmit)="on_template_submit(+tasktemplate.value)" #taskForm="ngForm">
           <div class="form-group">
             <label>Product:</label>
-            <input type="text" class="form-control" value="{{ product?.name }}" name="product" id="product" readonly>
+            <input type="text" class="form-control" value="{{ workitem.product.name }}" name="product" id="product" readonly>
           </div>
           <div class="form-group">
             <label>Version:</label>
-            <input type="text" class="form-control" value="{{ version?.name }}" name="version" id="version" readonly>
+            <input type="text" class="form-control" value="{{ workitem.version.name }}" name="version" id="version" readonly>
           </div>
           <div class="form-group">
             <label>Task Template:</label>

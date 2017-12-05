@@ -17,7 +17,9 @@ export class Priority {
 export class Product {
     id: number;
     name: string;
+    product_name: string;
     product_ids?: string;
+    default_components?: string;
 }
 
 export class Version {
@@ -78,13 +80,13 @@ export class Workitem {
     id: number;
     wi_id: number;
     summary?: string;
-    //status?: Status;
-    status?: number;
-    //product?: Product;
-    product?: number;
+    status?: Status;
+    //status?: number;
+    product?: Product;
+    //product?: number;
     uuid?: string;
-    //version?: Version;
-    version?: number;
+    version?: Version;
+    //version?: number;
     platforms_string?: string;
     platforms?: Platform[];
     filelist?: string;
@@ -111,4 +113,5 @@ export class Workitem {
     file_task?: string;
     file_config?: string;
     file_makefile?: string;
+    reldir?: string;
 }

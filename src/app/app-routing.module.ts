@@ -10,6 +10,7 @@ import { WorkitemListComponent } from './workitem-list/workitem-list.component';
 import { WorkitemDetailComponent } from './workitem-detail/workitem-detail.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
+import { NgbProgressbarLabeledComponent } from './ng-bootstrap/ngb-progressbar-labeled.component';
 
 const routes: Routes = [
   { path: 'status-list', component: StatusListComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'workitem-detail/:id', component: WorkitemDetailComponent },
   { path: 'task-list', component: TaskListComponent },
   { path: 'task-detail/:id', component: TaskDetailComponent },
+  { path: 'ngb-progressbar-labeled', component: NgbProgressbarLabeledComponent }
 ]
 
 @NgModule({

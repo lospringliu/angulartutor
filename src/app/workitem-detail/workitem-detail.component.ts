@@ -19,13 +19,12 @@ export class WorkitemDetailComponent implements OnInit {
 
   wi_id: number;
   workitem: Workitem;
-  status: Status;
-  version: Version;
-  product: Product;
+  //status: Status;
+  //version: Version;
 
-  STATUSES: Status[];
-  VERSIONS: Version[];
-  PRODUCTS: Product[];
+  //STATUSES: Status[];
+  //VERSIONS: Version[];
+  //PRODUCTS: Product[];
   TASKTEMPLATES: FakeTask[];
 
   task_template: FakeTask;
@@ -38,9 +37,8 @@ export class WorkitemDetailComponent implements OnInit {
   ngOnInit() {
     this.wi_id = +this._route.snapshot.paramMap.get('id') ;
     this.get_TASKTEMPLATES();
-    this.get_STATUSES();
-    this.get_VERSIONS();
-    this.get_PRODUCTS();
+    //this.get_STATUSES();
+    //this.get_VERSIONS();
     this.getObject();
   }
 
@@ -75,33 +73,6 @@ export class WorkitemDetailComponent implements OnInit {
     this.task_template = this.TASKTEMPLATES.filter(faketask => faketask.id === id)[0];
   }
 
-  get_STATUSES():void {
-    this._statusService.getObjects()
-        .subscribe(statuses => this.STATUSES = statuses);
-  }
-
-  get_Status(id: number): void {
-    this.status = this.STATUSES.filter(status => status.id === id)[0];
-  }
-  
-  get_VERSIONS(): void {
-    this._versionService.getObjects()
-        .subscribe(versions => this.VERSIONS = versions);
-  }
-
-  get_Version(id: number): void {
-    this.version = this.VERSIONS.filter(version => version.id === id)[0];
-  }
-
-  get_PRODUCTS(): void {
-    this._productService.getObjects()
-        .subscribe(products => this.PRODUCTS = products);
-  }
-
-  get_Product(id: number): void {
-    this.product = this.PRODUCTS.filter(product => product.id === id)[0];
-  }
-
   syncObject(): void {
     this._workitemService.syncObject(this.workitem.id)
         .subscribe(workitem => { 
@@ -115,13 +86,6 @@ export class WorkitemDetailComponent implements OnInit {
           if ( this.TASKTEMPLATES === undefined || this.TASKTEMPLATES === null || this.TASKTEMPLATES === [] ) {
             this.get_TASKTEMPLATES();
           }
-          this.get_Status(workitem.status);
-          if ( workitem.version > 0 ) {
-            this.get_Version(workitem.version);
-          }
-          if ( workitem.product > 0 ) {
-            this.get_Product(workitem.product);
-          }
           this.workitem = workitem;
         });
   }
@@ -130,6 +94,12 @@ export class WorkitemDetailComponent implements OnInit {
     //this._workitemService.updateObject({ id: this.workitem.id, product: this.workitem.product, version: this.workitem.version, task_template: this.workitem.task_template } as Workitem)
     this._workitemService.updateObject( this.workitem )
         .subscribe(() => alert('workitem saved!'));
+  }
+
+  run(): void {
+    //this._workitemService.updateObject({ id: this.workitem.id, product: this.workitem.product, version: this.workitem.version, task_template: this.workitem.task_template } as Workitem)
+    this._workitemService.updateObject( this.workitem, true )
+         .subscribe(_ => alert(_['status']));
   }
 
   onTaskFile(taskfile: string) {
