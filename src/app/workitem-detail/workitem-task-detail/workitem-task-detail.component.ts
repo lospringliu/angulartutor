@@ -44,7 +44,7 @@ export class WorkitemTaskDetailComponent implements OnInit, AfterViewInit {
 
   generate_task_file(): void {
     this.taskfile = '';
-    this.taskfile += `[task]     \ttask.${this.task.task_name}\n`;
+    this.taskfile += `[task]     \t${this.task.task_name}\n`;
     this.taskfile += `[comments]     \t${this.workitem.wi_id}\n`;
     this.taskfile += "[editor]   \tbldsrv\n";
     this.taskfile += `[username]   \tengbuild\n`;
@@ -205,7 +205,7 @@ export class WorkitemTaskDetailComponent implements OnInit, AfterViewInit {
   }
   
   ngOnInit() {
-    this.task_id = this.workitem.task_template;
+    this.task_id = this.workitem.task_template.task_id;
     this.getObject();
     this.get_STATUSES();  
   }

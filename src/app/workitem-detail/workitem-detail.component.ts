@@ -42,18 +42,17 @@ export class WorkitemDetailComponent implements OnInit {
     this.getObject();
   }
 
-  on_template_submit(id: number): void {
-    this.get_TaskTemplate(id);
-    if ( this.workitem.task_template !== id ) {
-      this.workitem.task_template = id;
-      this.save();
-    } 
+  on_template_submit(): void {
+    //this.get_TaskTemplate(id);
+    //if ( this.workitem.task_template !== id ) {
+    //  this.workitem.task_template = id;
+    //  this.save();
+    //} 
     this.template_finished = true;
   }
 
   get_TASKTEMPLATES(): void {
-    const id = +this._route.snapshot.paramMap.get('id') ;
-    this._workitemService.getTaskTemplates(id)
+    this._workitemService.getTaskTemplates(this.wi_id)
         .subscribe(tasktemplates => this.TASKTEMPLATES = tasktemplates.sort((t1,t2) => {
           let s1 = t1.task_name.toUpperCase();
           let s2 = t2.task_name.toUpperCase();
@@ -69,8 +68,9 @@ export class WorkitemDetailComponent implements OnInit {
         }));
   }
 
-  get_TaskTemplate(id: number): void {
-    this.task_template = this.TASKTEMPLATES.filter(faketask => faketask.id === id)[0];
+  get_TaskTemplate(): void {
+    //this.task_template = this.TASKTEMPLATES.filter(faketask => faketask.id === id)[0];
+    console.log("get_TaskTemplate");
   }
 
   syncObject(): void {
@@ -109,5 +109,9 @@ export class WorkitemDetailComponent implements OnInit {
 
   goBack(): void {
     this._location.back();
+  }
+
+  compareObject(x: FakeTask, y: FakeTask) {
+    return x.id === y.id ;
   }
 }

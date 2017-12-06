@@ -14,7 +14,7 @@ const httpOptions = {
 export class WorkitemService {
 
   private _url = 'http://ma1blds3.eng.platformlab.ibm.com:8002/api/patchbuild/workitem/';
-  private _url2 = 'http://ma1blds1.eng.platformlab.ibm.com:8002/api/patchbuild/workitem/';
+  private _urlSave = 'http://ma1blds1.eng.platformlab.ibm.com:8002/api/patchbuild/simpleworkitem/';
 
   constructor(private _http: HttpClient, private _messageService: MessageService) { }
 
@@ -73,15 +73,15 @@ export class WorkitemService {
 
   updateObject(obj: Workitem, start:boolean = false): Observable<any> {
     if (!start) {
-      //return this._http.patch(`${this._url}${obj.id}/`, { id: obj.id, wi_id: obj.wi_id, product: obj.product, version: obj.version, task_template: obj.task_template, file_task: obj.file_task, file_config: obj.file_config, file_makefile: obj.file_makefile, packages: obj.packages, streams: obj.streams, reldir: obj.reldir } as Workitem, httpOptions)
+      //return this._http.patch(`${this._url}${obj.id}/`, { id: obj.id, wi_id: obj.wi_id, product: obj.product, version: obj.version.id, task_template: obj.task_template, file_task: obj.file_task, file_config: obj.file_config, file_makefile: obj.file_makefile, packages: obj.packages, streams: obj.streams, reldir: obj.reldir } as Workitem, httpOptions)
       //return this._http.post(`${this._url}`, obj, httpOptions)
-      return this._http.patch(`${this._url}${obj.id}/`, { id: obj.id, version: obj.version, task_template: obj.task_template, file_task: obj.file_task, file_config: obj.file_config, file_makefile: obj.file_makefile, packages: obj.packages, streams: obj.streams, reldir: obj.reldir } as Workitem, httpOptions)
+      return this._http.patch(`${this._urlSave}${obj.id}/`, { id: obj.id, version: obj.version.id, task_template: obj.task_template.id, file_task: obj.file_task, file_config: obj.file_config, file_makefile: obj.file_makefile, packages: obj.packages, streams: obj.streams, reldir: obj.reldir }, httpOptions)
           .pipe(
             tap(_ => this._log(`updated object with id=${obj.id}`)),
             catchError(this._handleError<any>('updateObject'))
           );
     } else {
-      return this._http.patch(`${this._url2}${obj.id}/start/`, { id: obj.id, file_config: obj.file_config, file_makefile: obj.file_makefile } as Workitem, httpOptions)
+      return this._http.patch(`${this._urlSave}${obj.id}/start/`, { id: obj.id, file_task: obj.file_task, file_config: obj.file_config, file_makefile: obj.file_makefile }, httpOptions)
       //return this._http.post(`${this._url}`, obj, httpOptions)
           .pipe(
             tap(_ => this._log(`updated object with id=${obj.id}`)),

@@ -107,8 +107,8 @@ export class Workitem {
     updated?: any;
     timestamp?: any;
     created?: any;
-    //task_template?: FakeTask;
-    task_template: number;
+    task_template?: FakeTask;
+    //task_template: number;
     locked?: boolean;
     file_task?: string;
     file_config?: string;

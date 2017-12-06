@@ -49,7 +49,7 @@
       {{ task_template?.task_name }}<button class="btn btn-default" (click)="template_finished=!template_finished">Select Task Template</button>
     </div>    
      <div [hidden]="template_finished">
-        <form (ngSubmit)="on_template_submit(+tasktemplate.value)" #taskForm="ngForm">
+        <form>
           <div class="form-group">
             <label>Product:</label>
             <input type="text" class="form-control" value="{{ workitem.product.name }}" name="product" id="product" readonly>
@@ -60,15 +60,18 @@
           </div>
           <div class="form-group">
             <label>Task Template:</label>
-            <select #tasktemplate name="tasktemplate" class="form-control" id="tasktemplate">
-              <option *ngFor="let otask of TASKTEMPLATES" value="{{ otask.id }}"  [selected]="otask.id === workitem?.task_template">{{ otask.task_name }}</option>
+            <select [compareWith]="compareObject" [(ngModel)]="workitem.task_template" name="tasktemplate" class="form-control" id="tasktemplate">
+              <ng-container *ngFor="let faketask of TASKTEMPLATES">
+                <option [ngValue]="faketask" >{{ faketask.task_name }}</option>
+              </ng-container>
             </select>
           </div>
           <div>
-            <button type="submit" class="btn btn-primary">Go Next</button>
+            <button class="btn btn-primary" (click)="on_template_submit()">Go Next</button>
           </div>
         </form>
       </div>
+      <div>{{ workitem.task_template | json }}</div>
     </div>
     <div *ngIf="template_finished">
         <workitem-task-detail [workitem]="workitem" (onTaskFile)="onTaskFile($event)"></workitem-task-detail>
