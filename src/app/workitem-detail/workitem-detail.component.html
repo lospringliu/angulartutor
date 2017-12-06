@@ -46,7 +46,7 @@
   <div *ngIf="workitem">
     <h3>Select Task Template</h3>
     <div [hidden]="!template_finished">
-      {{ task_template?.task_name }}<button class="btn btn-default" (click)="template_finished=!template_finished">Select Task Template</button>
+      {{ workitem.task_template.task_name }}<button class="btn btn-default" (click)="template_finished=!template_finished">Select Task Template</button>
     </div>    
      <div [hidden]="template_finished">
         <form>
@@ -71,7 +71,6 @@
           </div>
         </form>
       </div>
-      <div>{{ workitem.task_template | json }}</div>
     </div>
     <div *ngIf="template_finished">
         <workitem-task-detail [workitem]="workitem" (onTaskFile)="onTaskFile($event)"></workitem-task-detail>

@@ -19,15 +19,9 @@ export class WorkitemDetailComponent implements OnInit {
 
   wi_id: number;
   workitem: Workitem;
-  //status: Status;
-  //version: Version;
 
-  //STATUSES: Status[];
-  //VERSIONS: Version[];
-  //PRODUCTS: Product[];
   TASKTEMPLATES: FakeTask[];
 
-  task_template: FakeTask;
   template_finished: boolean = false;
 
   readonly_file_task: boolean = true;
@@ -37,17 +31,10 @@ export class WorkitemDetailComponent implements OnInit {
   ngOnInit() {
     this.wi_id = +this._route.snapshot.paramMap.get('id') ;
     this.get_TASKTEMPLATES();
-    //this.get_STATUSES();
-    //this.get_VERSIONS();
     this.getObject();
   }
 
   on_template_submit(): void {
-    //this.get_TaskTemplate(id);
-    //if ( this.workitem.task_template !== id ) {
-    //  this.workitem.task_template = id;
-    //  this.save();
-    //} 
     this.template_finished = true;
   }
 
@@ -66,11 +53,6 @@ export class WorkitemDetailComponent implements OnInit {
             return 0;
           }
         }));
-  }
-
-  get_TaskTemplate(): void {
-    //this.task_template = this.TASKTEMPLATES.filter(faketask => faketask.id === id)[0];
-    console.log("get_TaskTemplate");
   }
 
   syncObject(): void {
