@@ -19,7 +19,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {DefaultComponent} from './default';
 import {GettingStarted} from './getting-started';
-//import {NgbdDemoModule} from './components';
+import {NgbdDemoModule} from './components';
 import {NgbdSharedModule} from './shared';
 
 // import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -68,7 +68,7 @@ import { NgbProgressbarLabeledComponent } from './ng-bootstrap/ngb-progressbar-l
     HttpClientModule,
     AppRoutingModule,
     // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
-    //NgbdDemoModule,
+    NgbdDemoModule,
     NgbdSharedModule
   ],
   providers: [StatusService, MessageService, OsCategoryService, ProductBuildService, OsService, WorkitemService, VersionService, ProductService, PatchStatusService, TaskService],
