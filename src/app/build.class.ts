@@ -28,6 +28,29 @@ export class Project {
     product: Product;
 }
 
+export class Step {
+    step_id: number;
+    step_name: string;
+    commands: string;
+    project?: number;
+    env?: string;
+}
+
+export class ProjectOs {
+    project_os_id: number;
+    step: Step;
+    os?: Os;
+    host?: number;
+    user?: number;
+    makedef?: number;
+    project?: number;
+    depend_os_id?: number;
+    sequence?: number;
+    component?: number;
+    depend?: string;
+    os_threshold?: number;
+}
+
 export class Component {
     component_id: number;
     component_name: string;
@@ -57,7 +80,7 @@ export class TaskProjectOs {
     sequence?: number;
     host?: number;
     status?: number;
-    project_os?: number;
+    project_os?: ProjectOs;
     job_host?: string;
 }
 

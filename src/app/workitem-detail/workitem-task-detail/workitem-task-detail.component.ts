@@ -43,6 +43,11 @@ export class WorkitemTaskDetailComponent implements OnInit, AfterViewInit {
   constructor(private _route: ActivatedRoute, private _location: Location, private _taskService: TaskService, private  _statusService: StatusService) { }
 
   generate_task_file(): void {
+    let task_name: string = this.task.task_name;
+    task_name = task_name.replace(/\.weekly/i,'').replace(/\.ifix/i,'').replace(/_gp/i,'');
+    if ( task_name === 'cws2.2' ) {
+      task_name = 'sym7.1.1';
+    } 
     this.taskfile = '';
     this.taskfile += `[task]     \t${this.task.task_name}\n`;
     this.taskfile += `[comments]     \t${this.workitem.wi_id}\n`;
@@ -60,25 +65,60 @@ export class WorkitemTaskDetailComponent implements OnInit, AfterViewInit {
     this.taskfile += `\n[begin]   \t${this.task.checkout === "Y" ? 'checkout' : 'none'}\n`;
     this.taskfile += `[cpcvs]   \t${this.cpcvs ? "yes" : "none" }\n`;
     this.taskfile += `[strip]   \t${this.task.strip === 'Y' ? 'strip' : 'none'}\n`;
-    this.taskfile += `[end]     \t${this.task.auto_clean === 'Y' ? 'none' : 'none'}\n`;
+    this.taskfile += `[end]     \tnone\n`;
+    this.taskfile += `[clean]     \tnone\n`;
     this.taskfile += `[report]  \t${this.task.auto_report === 'Y' ? 'yes' : 'none'}\n`;
-    this.taskfile += `[clean]     \t${this.task.auto_clean === 'Y' ? 'yes' : 'none'}\n`;
+    //this.taskfile += `[clean]     \t${this.task.auto_clean === 'Y' ? 'yes' : 'none'}\n`;
     if (this.task.mailto){
         this.taskfile += `[mailto] \t${this.task.mailto}\n`;
     }
     this.taskfile += `[backup]  \tmonthday\n\n`
     
-    this.task.env.trim().split('\n').map(line => line.trim()).filter(line => line !== '').filter(line => line[0] !== '#')
-      .map(line => line.replace(/buildno=.*/,`buildno=${this.workitem.wi_id}`))  
-      .map(line => { if (line[0] === '.') {
-                        return `[env]  \t${line}`;
+    this.task.env.trim().split('\n').map(line => line.trim()).filter(line => line !== '')
+      //.filter(line => line[0] !== '#')
+      .map(line => {  let z = line[0] === '#' ? '#' : '' ;
+                      line = line.replace(/^#+/,'');
+                      line = line.replace(/buildno=.*/,`buildno=${this.workitem.wi_id}`);
+                      line = line.replace(/ftpdirw=.*/,`ftpdirw=U:\\\\\\\\\\\\\\\\pcc\\\\\\\\\\\\\\\\saqa\\\\\\\\\\\\\\\\ftpdir\\\\\\\\\\\\\\\\${task_name}`);
+                      line = line.replace(/ftpdir=.*/,`ftpdir=/pcc/saqa/ftpdir/${task_name}`);
+                      line = line.replace(/layout=.*/,`layout=/pcc/saqa/ftpdir/${task_name}/layout`);
+                      //clean_dir
+                      line = line.replace(/filelist=.*/,`filelist=\$work/filelist/${this.workitem.wi_id}`);
+                      if ( task_name === "sym6.1.1" ) {
+                        line = line.replace(/major_version=.*/,`major_version=6.1`);
+                        if (/minor_version/.test(line)) {
+                          line = line.replace(/0/,`1`);
+                        }
+                      }
+                      //win_version_number or hard_depend
+                      if ( /WIN_VERSION_NUMBER/i.test(line) || /hard_depend/i.test(line) ) {
+                        z = '#' ;
+                      }
+                      //packagetype
+                      if (/PACKAGETYPE=/.test(line)) {
+                        line = line.replace(/EP/,'Fix');
+                      }
+                      //hotfix
+                      if ( /HOTFIX=/.test(line) && /lsf/i.test(task_name) && this.workitem.apar !== '') {
+                        z = '';
+                        line = line.replace(/HOT_FIX=\\"\\"/,`HOT_FIX=\\"${this.workitem.apar}\\"`);
+                      }
+                      //lsf_product_build or java_x86_sol10
+                      if (/LSF_PROUDCT_BUILD=/.test(line) || /JAVA_X86_SOL10=/.test(line) ) {
+                        line = `IS2010BUILD_ROOT="C:/Program Files/InstallShield/2010 StandaloneBuild/System"`
+                      }
+                      //task_name === pm7.1.sas
+                      if (line[0] === '.') {
+                        return `${z}[env]  \t${line.substring(1)}`;
                       } else {
                         let parts = /^(.*?)=(.*)$/.exec(line);
-                        if (parts[1][0] === '_') {
+                        if (parts === null) {
+                          return `${z}${line}`;
+                        }else if (parts[1][0] === '_') {
                           
-                          return `[${parts[1].substring(1)}]    \t${parts[2]}`; 
+                          return `${z}[${parts[1].substring(1)}]    \t${parts[2]}`; 
                         } else {
-                          return `[~${parts[1]}]    \t${parts[2]}`;
+                          return `${z}[~${parts[1]}]    \t${parts[2]}`;
                         } 
                       } 
                     }
@@ -89,7 +129,7 @@ export class WorkitemTaskDetailComponent implements OnInit, AfterViewInit {
     this.TASKPROJECTS.forEach( tp => {
       this.taskfile += `[component]\t${tp.component.component_name}\n[os]\n`;
       for (var tpo of this.TASKPROJECTOSES.filter( tpo => tpo.enable === 'Y' && tpo.component.component_id === tp.component.component_id)) {
-        this.taskfile += `\t${tpo.os.os_name}\n`;
+        this.taskfile += `\t${tpo.os.os_name}\t#${tpo.project_os.step.step_name}\n`;
       } 
       this.taskfile += "\n";
     });

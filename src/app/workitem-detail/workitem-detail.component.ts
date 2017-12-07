@@ -94,6 +94,10 @@ export class WorkitemDetailComponent implements OnInit {
   }
 
   compareObject(x: FakeTask, y: FakeTask) {
-    return x.id === y.id ;
+    if ( x !== null && y !== null ) {
+      return x.id === y.id ;
+    } else {
+      return false;
+    }
   }
 }
