@@ -182,7 +182,9 @@ export class WorkitemTaskDetailComponent implements OnInit, AfterViewInit {
     this.components_selected = !this.components_selected;
     this.oses_selected = false;
   }
-
+  toogle_oses_selected() {
+    this.oses_selected = false;
+  }
   toggle_task_checkout() {
     if (this.task.checkout === 'Y') {
       this.task.checkout = 'N';

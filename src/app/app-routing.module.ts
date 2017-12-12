@@ -147,9 +147,9 @@ const routes: Routes = [
   { path: 'task-list', component: TaskListComponent },
   { path: 'task-detail/:id', component: TaskDetailComponent },
   { path: 'ngb-progressbar-labeled', component: NgbProgressbarLabeledComponent },
-  {path: 'home', component: DefaultComponent},
-  {path: 'getting-started', component: GettingStarted},
-  {path: 'components', pathMatch: 'full', redirectTo: 'components/accordion' },
+  { path: 'home', component: DefaultComponent},
+  { path: 'getting-started', component: GettingStarted},
+  { path: 'components', pathMatch: 'full', redirectTo: 'components/accordion' },
   ...componentRoutes
 ]
 
